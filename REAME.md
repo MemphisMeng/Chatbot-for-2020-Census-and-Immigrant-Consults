@@ -12,7 +12,8 @@ tensorflow<br>
 Flask<br>
 os<br>
 sys<br>
-numpy</p>
+numpy<br>
+ngrok</p>
 </blockquote>
 <blockquote>
 <h2 id="to-do">TO-DO</h2>
