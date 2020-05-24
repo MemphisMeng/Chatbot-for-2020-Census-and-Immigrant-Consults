@@ -4,6 +4,7 @@ import torch.nn.functional as F
 import os
 from train.data_utils import SOS_token, batch2TrainData, normalizeString, indexesFromSentence
 import random
+import string
 
 USE_CUDA = torch.cuda.is_available()
 device = torch.device("cuda" if USE_CUDA else "cpu")
@@ -284,7 +285,7 @@ class GreedySearchDecoder(nn.Module):
 
 
 def evaluate(searcher, voc, sentence, max_length=10):
-    ### Format input sentence as a batch
+    # Format input sentence as a batch
     # words -> indexes
     indexes_batch = [indexesFromSentence(voc, sentence)]
     # Create lengths tensor
@@ -302,13 +303,31 @@ def evaluate(searcher, voc, sentence, max_length=10):
 
 
 def evaluateInput(searcher, voc, input_sentence):
-    while(True):
+    while True:
         try:
             input_sentence = normalizeString(input_sentence)
             # Evaluate sentence
             output_words = evaluate(searcher, voc, input_sentence)
             # Format and print response sentence
             output_words[:] = [x for x in output_words if not (x == 'EOS' or x == 'PAD')]
+            output_words[0] = output_words[0][0].upper() + output_words[0][1:]
+            toDelete = []
+            for i in range(1, len(output_words)):
+                if len(output_words[i]) == 1:
+                    if output_words[i] == 'i':
+                        output_words[i] = 'I'
+                    elif output_words[i] not in string.punctuation:
+                        output_words[i-1] = output_words[i-1] + '\'' + output_words[i]
+                        toDelete.append(output_words[i])
+                    else:
+                        output_words[i - 1] = output_words[i - 1] + output_words[i]
+                        toDelete.append(output_words[i])
+                elif output_words[i] == 've' or output_words[i] == 're':
+                    output_words[i-1] = output_words[i-1] + '\'' + output_words[i]
+                    toDelete.append(output_words[i])
+            for i in toDelete:
+                output_words.remove(i)
+
             return ' '.join(output_words)
 
         except KeyError:
