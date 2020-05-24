@@ -223,7 +223,7 @@ def trainIters(model_name, voc, pairs, encoder, decoder, encoder_optimizer, deco
 
         # Run a training iteration with batch
         loss = train(input_variable, lengths, target_variable, mask, max_target_len, encoder,
-                     decoder, embedding, encoder_optimizer, decoder_optimizer, batch_size, clip, teacher_forcing_ratio)
+                     decoder, encoder_optimizer, decoder_optimizer, batch_size, clip, teacher_forcing_ratio)
         print_loss += loss
 
         # Print progress

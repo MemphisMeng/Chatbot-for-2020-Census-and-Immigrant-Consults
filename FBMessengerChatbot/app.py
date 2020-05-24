@@ -1,5 +1,4 @@
 from flask import Flask, request
-import nltk
 import os
 from torch import optim
 from train.data_utils import loadPrepareData, trimRareWords
@@ -13,12 +12,6 @@ app = Flask(__name__)
 ACCESS_TOKEN = 'EAAlE2KkA5dYBAI6q0sW3hOFsMBGhXpHHVuLK9cQLiwjdvhXjyZC7f0enLVm7mDVe3EPP6hObCCTK4dRTZBOQrqUFyErweY9Pf04ObTaZCJvJOSPYohhoFZBQjHxvVuy7vITHgv4whpZAnfS60pU56I4kdDC1D4vcbuHmgSaZAR92BUI8NIZBEVg'
 VERIFY_TOKEN = 'L1ZOlsiRrlBSbs/xFesH6jjkDm1OzJlwEmPa93iBNz4='
 bot = Bot(ACCESS_TOKEN)
-
-nltk.download('punkt')
-nltk.download('wordnet')
-
-lemmer = nltk.stem.WordNetLemmatizer()
-
 dataFile = 'data\\train\\movie_lines_new.txt'
 save_dir = os.path.join("data", "save")
 if not os.path.isdir(save_dir):
@@ -63,7 +56,7 @@ if train.config.LOADFILENAME:
 trainIters(train.config.MODEL_NAME, voc, pairs, encoder, decoder, encoder_optimizer, decoder_optimizer,
            embedding, train.config.ENCODER_N_LAYERS, train.config.DECODER_N_LAYERS, save_dir, train.config.N_ITERATION,
            train.config.BATCH_SIZE, train.config.PRINT_EVERY, train.config.SAVE_EVERY, train.config.CLIP, 'data\\train',
-           train.config.LOADFILENAME)
+           train.config.LOADFILENAME, None, train.config.TEACHER_FORCING_RATIO)
 
 
 # Set dropout layers to eval mode
