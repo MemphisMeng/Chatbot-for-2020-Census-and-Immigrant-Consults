@@ -245,3 +245,4 @@ def batch2TrainData(voc, pair_batch):
         output_batch.append(pair[1])
     inp, lengths = inputVar(input_batch, voc)
     output, mask, max_target_len = outputVar(output_batch, voc)
+

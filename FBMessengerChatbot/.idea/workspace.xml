@@ -2,17 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f9c13bf8-558f-4b2d-9576-97cc2301457c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/FBMessengerChatbot.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/FBMessengerChatbot.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test/testID20000.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/train/commonQuestions.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/train/movie_conversations.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/train/movie_lines.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/train/movie_lines_new.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/train/movie_lines_selected.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/train/trainID20000.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/train/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/train/config.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/train/data_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/train/data_utils.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/train/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/train/model.py" afterDir="false" />
@@ -211,7 +202,7 @@
       <workItem from="1590173000760" duration="1635000" />
       <workItem from="1590272004446" duration="7481000" />
       <workItem from="1590336535377" duration="7198000" />
-      <workItem from="1590366999547" duration="4111000" />
+      <workItem from="1590366999547" duration="4414000" />
     </task>
     <servers />
   </component>
