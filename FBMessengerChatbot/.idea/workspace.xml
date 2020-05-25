@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f9c13bf8-558f-4b2d-9576-97cc2301457c" name="Default Changelist" comment="" />
+    <list default="true" id="f9c13bf8-558f-4b2d-9576-97cc2301457c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/FBMessengerChatbot.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/FBMessengerChatbot.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/test/testID20000.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/train/commonQuestions.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/train/movie_conversations.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/train/movie_lines.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/train/movie_lines_new.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/train/movie_lines_selected.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/train/trainID20000.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/train/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/train/config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/train/data_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/train/data_utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/train/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/train/model.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,8 +30,12 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
   <component name="JupyterTrust" id="52e3d9d9-49e6-4d22-b41b-08f8a7970ed5" />
   <component name="ProjectId" id="1c9S0kRyVSQpJmZUheJP0gb6l4j" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -25,6 +44,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -33,7 +53,7 @@
       <recent name="C:\Users\Memphis Meng\PycharmProjects\FBMessengerChatbot\data" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.pytorch_bot">
+  <component name="RunManager" selected="Flask server.Flask (app.py)">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="FBMessengerChatbot" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -137,8 +157,24 @@
       <option name="launchJavascriptDebuger" value="false" />
       <method v="2" />
     </configuration>
+    <configuration name="Flask (app.py)" type="Python.FlaskServer" temporary="true" nameIsGenerated="true">
+      <module name="FBMessengerChatbot" />
+      <option name="target" value="$PROJECT_DIR$/app.py" />
+      <option name="targetType" value="PATH" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Flask server.Flask (app.py)" />
         <item itemvalue="Python.pytorch_bot" />
         <item itemvalue="Python.train" />
         <item itemvalue="Python.data_utils" />
@@ -170,7 +206,12 @@
       <workItem from="1589939135314" duration="2353000" />
       <workItem from="1590003372546" duration="922000" />
       <workItem from="1590004340441" duration="25777000" />
-      <workItem from="1590071528715" duration="14164000" />
+      <workItem from="1590071528715" duration="15519000" />
+      <workItem from="1590160808076" duration="5311000" />
+      <workItem from="1590173000760" duration="1635000" />
+      <workItem from="1590272004446" duration="7481000" />
+      <workItem from="1590336535377" duration="7198000" />
+      <workItem from="1590366999547" duration="4111000" />
     </task>
     <servers />
   </component>
@@ -190,22 +231,26 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="527" y="223" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.824@0.0.1536.824" timestamp="1589940000200" />
-    <state width="1493" height="261" key="GridCell.Tab.0.bottom" timestamp="1590020552064">
+    <state x="728" y="170" key="FileChooserDialogImpl" timestamp="1590171414976">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="261" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1590020552064" />
-    <state width="1493" height="261" key="GridCell.Tab.0.center" timestamp="1590020552064">
+    <state x="728" y="170" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1590171414976" />
+    <state width="1493" height="315" key="GridCell.Tab.0.bottom" timestamp="1590368472412">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="261" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1590020552064" />
-    <state width="1493" height="261" key="GridCell.Tab.0.left" timestamp="1590020552064">
+    <state width="1493" height="315" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1590368472412" />
+    <state width="1493" height="315" key="GridCell.Tab.0.center" timestamp="1590368472412">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="261" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1590020552064" />
-    <state width="1493" height="261" key="GridCell.Tab.0.right" timestamp="1590020552064">
+    <state width="1493" height="315" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1590368472412" />
+    <state width="1493" height="315" key="GridCell.Tab.0.left" timestamp="1590368472412">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="261" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1590020552064" />
+    <state width="1493" height="315" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1590368472412" />
+    <state width="1493" height="315" key="GridCell.Tab.0.right" timestamp="1590368472412">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="315" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1590368472412" />
     <state width="1493" height="261" key="GridCell.Tab.1.bottom" timestamp="1590020552064">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -222,16 +267,25 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1493" height="261" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1590020552064" />
-    <state x="279" y="58" key="SettingsEditor" timestamp="1590077922367">
+    <state x="419" y="91" key="SettingsEditor" timestamp="1590289036894">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="279" y="58" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1590077922367" />
-    <state x="477" y="241" key="com.intellij.ide.util.TipDialog" timestamp="1590071531557">
+    <state x="419" y="91" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1590289036894" />
+    <state x="361" y="149" key="Vcs.Push.Dialog.v2" timestamp="1590368626510">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="477" y="241" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1590071531557" />
+    <state x="361" y="149" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1590368626510" />
+    <state x="477" y="241" key="com.intellij.ide.util.TipDialog" timestamp="1590366999157">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="477" y="241" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1590366999157" />
+    <state x="380" y="217" key="git4idea.merge.GitPullDialog" timestamp="1590368567842">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="380" y="217" key="git4idea.merge.GitPullDialog/0.0.1536.824@0.0.1536.824" timestamp="1590368567842" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/FBMessengerChatbot$train.coverage" NAME="train Coverage Results" MODIFIED="1590020547549" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/FBMessengerChatbot$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1590368394156" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>

@@ -4,6 +4,8 @@ import torch.nn.functional as F
 import os
 from train.data_utils import SOS_token, batch2TrainData, normalizeString, indexesFromSentence
 import random
+import string
+from train.config import HIDDEN_SIZE
 
 USE_CUDA = torch.cuda.is_available()
 device = torch.device("cuda" if USE_CUDA else "cpu")
@@ -200,9 +202,8 @@ def train(input_variable, lengths, target_variable, mask, max_target_len, encode
     return sum(print_losses) / n_totals
 
 
-def trainIters(model_name, voc, pairs, encoder, decoder, encoder_optimizer, decoder_optimizer, embedding,
-               encoder_n_layers, decoder_n_layers, save_dir, n_iteration, batch_size, print_every,
-               save_every, clip, corpus_name, loadFilename, checkpoint, teacher_forcing_ratio):
+def trainIters(voc, pairs, encoder, decoder, encoder_optimizer, decoder_optimizer, embedding, save_dir,
+               n_iteration, batch_size, print_every, save_every, clip, loadFilename, checkpoint, teacher_forcing_ratio):
     # Load batches for each iteration
     training_batches = [batch2TrainData(voc, [random.choice(pairs) for _ in range(batch_size)])
                         for _ in range(n_iteration)]
@@ -223,7 +224,7 @@ def trainIters(model_name, voc, pairs, encoder, decoder, encoder_optimizer, deco
 
         # Run a training iteration with batch
         loss = train(input_variable, lengths, target_variable, mask, max_target_len, encoder,
-                     decoder, embedding, encoder_optimizer, decoder_optimizer, batch_size, clip, teacher_forcing_ratio)
+                     decoder, encoder_optimizer, decoder_optimizer, batch_size, clip, teacher_forcing_ratio)
         print_loss += loss
 
         # Print progress
@@ -236,10 +237,8 @@ def trainIters(model_name, voc, pairs, encoder, decoder, encoder_optimizer, deco
 
         # Save checkpoint
         if iteration % save_every == 0:
-            directory = os.path.join(save_dir, model_name, corpus_name,
-                                     '{}-{}_{}'.format(encoder_n_layers, decoder_n_layers, hidden_size))
-            if not os.path.exists(directory):
-                os.makedirs(directory)
+            if not os.path.exists(save_dir):
+                os.makedirs(save_dir)
             torch.save({
                 'iteration': iteration,
                 'en': encoder.state_dict(),
@@ -249,7 +248,7 @@ def trainIters(model_name, voc, pairs, encoder, decoder, encoder_optimizer, deco
                 'loss': loss,
                 'voc_dict': voc.__dict__,
                 'embedding': embedding.state_dict()
-            }, os.path.join(directory, '{}_{}.tar'.format(iteration, 'checkpoint')))
+            }, os.path.join(save_dir, '{}_{}.pt'.format(iteration, 'checkpoint')))
 
 
 class GreedySearchDecoder(nn.Module):
@@ -284,7 +283,7 @@ class GreedySearchDecoder(nn.Module):
 
 
 def evaluate(searcher, voc, sentence, max_length=10):
-    ### Format input sentence as a batch
+    # Format input sentence as a batch
     # words -> indexes
     indexes_batch = [indexesFromSentence(voc, sentence)]
     # Create lengths tensor
@@ -302,13 +301,31 @@ def evaluate(searcher, voc, sentence, max_length=10):
 
 
 def evaluateInput(searcher, voc, input_sentence):
-    while(True):
+    while True:
         try:
             input_sentence = normalizeString(input_sentence)
             # Evaluate sentence
             output_words = evaluate(searcher, voc, input_sentence)
             # Format and print response sentence
             output_words[:] = [x for x in output_words if not (x == 'EOS' or x == 'PAD')]
+            output_words[0] = output_words[0][0].upper() + output_words[0][1:]
+            toDelete = []
+            for i in range(1, len(output_words)):
+                if len(output_words[i]) == 1:
+                    if output_words[i] == 'i':
+                        output_words[i] = 'I'
+                    elif output_words[i] not in string.punctuation:
+                        output_words[i-1] = output_words[i-1] + '\'' + output_words[i]
+                        toDelete.append(output_words[i])
+                    else:
+                        output_words[i - 1] = output_words[i - 1] + output_words[i]
+                        toDelete.append(output_words[i])
+                elif output_words[i] == 've' or output_words[i] == 're':
+                    output_words[i-1] = output_words[i-1] + '\'' + output_words[i]
+                    toDelete.append(output_words[i])
+            for i in toDelete:
+                output_words.remove(i)
+
             return ' '.join(output_words)
 
         except KeyError:
