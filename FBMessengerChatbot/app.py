@@ -109,5 +109,5 @@ def verify_fb_token(token_sent):
     return 'Invalid verification token'
 
 
-# if __name__ == "__main__":
-#     app.run()
+if __name__ == "__main__":
+    app.run()
