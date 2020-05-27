@@ -1,1 +1,1 @@
-web: gunicorn wsgi:FBMessengerChatbot\app
+web: gunicorn FBMessengerChatbot\app:app
