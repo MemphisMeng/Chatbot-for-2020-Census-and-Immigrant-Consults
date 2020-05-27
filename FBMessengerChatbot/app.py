@@ -18,13 +18,14 @@ if not os.path.isdir(save_dir):
     os.mkdir(save_dir)
 voc, pairs = loadPrepareData("Facebbook Messenger Chatbot Chatbot", dataFile)
 pairs = trimRareWords(voc, pairs)
-# checkpoint = None
+checkpoint = 'state'
+
 
 if train.config.LOADFILENAME:
     # If loading on same machine the model was trained on
     checkpoint = torch.load(train.config.LOADFILENAME)
     # If loading a model trained on GPU to CPU
-    #checkpoint = torch.load(loadFilename, map_location=torch.device('cpu'))
+    # checkpoint = torch.load(loadFilename, map_location=torch.device('cpu'))
     encoder_sd = checkpoint['en']
     decoder_sd = checkpoint['de']
     encoder_optimizer_sd = checkpoint['en_opt']
@@ -58,8 +59,7 @@ if train.config.LOADFILENAME:
 trainIters(voc, pairs, encoder, decoder, encoder_optimizer, decoder_optimizer,
            embedding, save_dir, train.config.N_ITERATION,
            train.config.BATCH_SIZE, train.config.PRINT_EVERY, train.config.SAVE_EVERY, train.config.CLIP,
-           train.config.LOADFILENAME, 'state', train.config.TEACHER_FORCING_RATIO)
-
+           train.config.LOADFILENAME, checkpoint, train.config.TEACHER_FORCING_RATIO)
 
 # Set dropout layers to eval mode
 encoder.eval()
@@ -67,6 +67,7 @@ decoder.eval()
 
 # Initialize search module
 searcher = GreedySearchDecoder(encoder, decoder)
+
 
 # We will receive messages that Facebook sends our bot at this endpoint
 @app.route("/", methods=['GET', 'POST'])

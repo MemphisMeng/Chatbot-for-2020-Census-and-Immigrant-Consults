@@ -4,9 +4,6 @@
     <list default="true" id="f9c13bf8-558f-4b2d-9576-97cc2301457c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/train/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/train/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/train/data_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/train/data_utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/train/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/train/model.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -204,7 +201,7 @@
       <workItem from="1590366999547" duration="4559000" />
       <workItem from="1590449932785" duration="209000" />
       <workItem from="1590455308320" duration="1271000" />
-      <workItem from="1590533784225" duration="4473000" />
+      <workItem from="1590533784225" duration="5704000" />
     </task>
     <servers />
   </component>
@@ -224,26 +221,26 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="527" y="223" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.824@0.0.1536.824" timestamp="1589940000200" />
-    <state x="728" y="170" key="FileChooserDialogImpl" timestamp="1590533824253">
+    <state x="728" y="170" key="FileChooserDialogImpl" timestamp="1590543008312">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="728" y="170" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1590533824253" />
-    <state width="1493" height="303" key="GridCell.Tab.0.bottom" timestamp="1590542713358">
+    <state x="728" y="170" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1590543008312" />
+    <state width="1493" height="313" key="GridCell.Tab.0.bottom" timestamp="1590544048750">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="303" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1590542713358" />
-    <state width="1493" height="303" key="GridCell.Tab.0.center" timestamp="1590542713358">
+    <state width="1493" height="313" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1590544048750" />
+    <state width="1493" height="313" key="GridCell.Tab.0.center" timestamp="1590544048750">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="303" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1590542713358" />
-    <state width="1493" height="303" key="GridCell.Tab.0.left" timestamp="1590542713358">
+    <state width="1493" height="313" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1590544048750" />
+    <state width="1493" height="313" key="GridCell.Tab.0.left" timestamp="1590544048749">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="303" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1590542713358" />
-    <state width="1493" height="303" key="GridCell.Tab.0.right" timestamp="1590542713358">
+    <state width="1493" height="313" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1590544048749" />
+    <state width="1493" height="313" key="GridCell.Tab.0.right" timestamp="1590544048750">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="303" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1590542713358" />
+    <state width="1493" height="313" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1590544048750" />
     <state width="1493" height="261" key="GridCell.Tab.1.bottom" timestamp="1590020552064">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -279,6 +276,6 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/FBMessengerChatbot$train.coverage" NAME="train Coverage Results" MODIFIED="1590020547549" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/FBMessengerChatbot$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1590542615118" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/FBMessengerChatbot$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1590544048728" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>
