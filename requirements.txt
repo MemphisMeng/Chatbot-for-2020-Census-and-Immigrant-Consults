@@ -54,6 +54,7 @@ pandas==0.24.2
 parsel==1.5.2
 pathlib==1.0.1
 pbr==5.4.4
+pipenv==2018.11.26
 plotly==4.6.0
 pluggy==0.13.1
 prettytable==0.7.2

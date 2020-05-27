@@ -16,7 +16,7 @@ dataFile = 'data\\train\\movie_lines_new.txt'
 save_dir = os.path.join("data", "state")
 if not os.path.isdir(save_dir):
     os.mkdir(save_dir)
-voc, pairs = loadPrepareData("Facebbook Messenger Chatbot Chatbot", dataFile)
+voc, pairs = loadPrepareData("Facebbook Messenger Chatbot Chatbot!", dataFile)
 pairs = trimRareWords(voc, pairs)
 checkpoint = 'state'
 

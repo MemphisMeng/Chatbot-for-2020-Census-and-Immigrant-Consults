@@ -2,9 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f9c13bf8-558f-4b2d-9576-97cc2301457c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../wsgi.py" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/FBMessengerChatbot.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/other.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/state/1_checkpoint.pt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/test/testID20000.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/train/movie_lines_new.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/train/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/train/config.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/train/data_utils.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/train/model.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,7 +32,7 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="JupyterTrust" id="52e3d9d9-49e6-4d22-b41b-08f8a7970ed5" />
   <component name="ProjectId" id="1c9S0kRyVSQpJmZUheJP0gb6l4j" />
@@ -203,7 +215,7 @@
       <workItem from="1590449932785" duration="209000" />
       <workItem from="1590455308320" duration="1271000" />
       <workItem from="1590533784225" duration="9094000" />
-      <workItem from="1590594298930" duration="4956000" />
+      <workItem from="1590594298930" duration="5795000" />
     </task>
     <servers />
   </component>
