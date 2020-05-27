@@ -18,6 +18,6 @@ PRINT_EVERY = 1
 SAVE_EVERY = 1
 
 # Set checkpoint to load from; set to None if starting from scratch
-# LOADFILENAME = None
-LOADFILENAME = 'data/state/1_checkpoint.pt'
+LOADFILENAME = None
+# LOADFILENAME = 'data/state/1_checkpoint.pt'
 CHECKPOINT_ITER = 4000

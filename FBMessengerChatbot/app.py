@@ -18,6 +18,8 @@ if not os.path.isdir(save_dir):
     os.mkdir(save_dir)
 voc, pairs = loadPrepareData("Facebbook Messenger Chatbot Chatbot", dataFile)
 pairs = trimRareWords(voc, pairs)
+# checkpoint = None
+
 if train.config.LOADFILENAME:
     # If loading on same machine the model was trained on
     checkpoint = torch.load(train.config.LOADFILENAME)
@@ -56,7 +58,7 @@ if train.config.LOADFILENAME:
 trainIters(voc, pairs, encoder, decoder, encoder_optimizer, decoder_optimizer,
            embedding, save_dir, train.config.N_ITERATION,
            train.config.BATCH_SIZE, train.config.PRINT_EVERY, train.config.SAVE_EVERY, train.config.CLIP,
-           train.config.LOADFILENAME, checkpoint, train.config.TEACHER_FORCING_RATIO)
+           train.config.LOADFILENAME, 'state', train.config.TEACHER_FORCING_RATIO)
 
 
 # Set dropout layers to eval mode
