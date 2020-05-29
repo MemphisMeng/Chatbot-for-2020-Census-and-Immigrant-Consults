@@ -1,5 +1,4 @@
 from flask import Flask, request
-import os
 from pymessenger.bot import Bot
 from TFIDF.Transformer import Transformer
 
