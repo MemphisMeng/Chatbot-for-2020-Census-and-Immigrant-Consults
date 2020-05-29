@@ -1,6 +1,5 @@
 Flask==1.1.2
 pymessenger==0.0.7.0
-torch
 nltk
 pandas
 sklearn
