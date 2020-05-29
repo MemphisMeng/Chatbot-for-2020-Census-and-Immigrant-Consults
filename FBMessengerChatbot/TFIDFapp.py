@@ -1,6 +1,6 @@
 from flask import Flask, request
 from pymessenger.bot import Bot
-from TFIDF.Transformer import Transformer
+from FBMessengerChatbot.TFIDF.Transformer import Transformer
 
 app = Flask(__name__)
 ACCESS_TOKEN = 'EAAlE2KkA5dYBAI6q0sW3hOFsMBGhXpHHVuLK9cQLiwjdvhXjyZC7f0enLVm7mDVe3EPP6hObCCTK4dRTZBOQrqUFyErweY9Pf04ObTaZCJvJOSPYohhoFZBQjHxvVuy7vITHgv4whpZAnfS60pU56I4kdDC1D4vcbuHmgSaZAR92BUI8NIZBEVg'
