@@ -1,1 +1,1 @@
-web: gunicorn FBMessengerChatbot.TFIDFapp:app --log-level debug
+web: gunicorn app:app --log-level debug

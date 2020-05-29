@@ -9,11 +9,7 @@
       <change afterPath="$PROJECT_DIR$/.idea/other.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BRNN/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BRNN/config.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BRNN/data_utils.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BRNN/model.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BRNNapp.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +55,7 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/Chatbot-for-2020-Census-and-Immigrant-Consults" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -248,6 +244,7 @@
       <workItem from="1590594298930" duration="7116000" />
       <workItem from="1590673492428" duration="24334000" />
       <workItem from="1590774278354" duration="5043000" />
+      <workItem from="1590787886823" duration="920000" />
     </task>
     <servers />
   </component>
@@ -267,10 +264,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="527" y="223" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.824@0.0.1536.824" timestamp="1589940000200" />
-    <state x="728" y="170" key="FileChooserDialogImpl" timestamp="1590543008312">
+    <state x="728" y="170" key="FileChooserDialogImpl" timestamp="1590788878827">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="728" y="170" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1590543008312" />
+    <state x="728" y="170" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1590788878827" />
     <state width="1493" height="293" key="GridCell.Tab.0.bottom" timestamp="1590787085152">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
