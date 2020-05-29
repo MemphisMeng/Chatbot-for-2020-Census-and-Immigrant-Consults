@@ -12,7 +12,7 @@ app = Flask(__name__)
 ACCESS_TOKEN = 'EAAlE2KkA5dYBAI6q0sW3hOFsMBGhXpHHVuLK9cQLiwjdvhXjyZC7f0enLVm7mDVe3EPP6hObCCTK4dRTZBOQrqUFyErweY9Pf04ObTaZCJvJOSPYohhoFZBQjHxvVuy7vITHgv4whpZAnfS60pU56I4kdDC1D4vcbuHmgSaZAR92BUI8NIZBEVg'
 VERIFY_TOKEN = 'L1ZOlsiRrlBSbs/xFesH6jjkDm1OzJlwEmPa93iBNz4='
 bot = Bot(ACCESS_TOKEN)
-dataFile = 'data\\train\\augmented_MIRAquestions.txt'
+dataFile = 'data/train/augmented_MIRAquestions.txt'
 save_dir = os.path.join("data", "state")
 if not os.path.isdir(save_dir):
     os.mkdir(save_dir)

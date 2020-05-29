@@ -6,8 +6,8 @@ app = Flask(__name__)
 ACCESS_TOKEN = 'EAAlE2KkA5dYBAI6q0sW3hOFsMBGhXpHHVuLK9cQLiwjdvhXjyZC7f0enLVm7mDVe3EPP6hObCCTK4dRTZBOQrqUFyErweY9Pf04ObTaZCJvJOSPYohhoFZBQjHxvVuy7vITHgv4whpZAnfS60pU56I4kdDC1D4vcbuHmgSaZAR92BUI8NIZBEVg'
 VERIFY_TOKEN = 'L1ZOlsiRrlBSbs/xFesH6jjkDm1OzJlwEmPa93iBNz4='
 bot = Bot(ACCESS_TOKEN)
-transformer = Transformer('data\\train\\QnA.csv')
-dataFile = 'data\\train\\augmented_MIRAquestions.txt'
+transformer = Transformer('data/train/QnA.csv')
+dataFile = 'data/train/augmented_MIRAquestions.txt'
 
 
 # We will receive messages that Facebook sends our bot at this endpoint
