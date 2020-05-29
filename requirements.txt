@@ -3,3 +3,4 @@ pymessenger==0.0.7.0
 nltk
 pandas
 sklearn
+gunicorn
