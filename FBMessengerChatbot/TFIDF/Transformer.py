@@ -12,7 +12,7 @@ class Transformer:
         """
         initialize corpus, BoW and TFIDF from file
         """
-        self.FAQ = pd.read_csv(file, keep_default_na=False, encoding='iso-8859-1')
+        self.FAQ = pd.read_csv(file, keep_default_na=False, encoding='cp1252')
         self.questions = self.FAQ.question
         self.answers = self.FAQ.answer
         self.corpus = self.FAQ.question + ' ' + self.FAQ.answer
