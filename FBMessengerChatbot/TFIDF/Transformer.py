@@ -8,11 +8,14 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 
 class Transformer:
-    def __init__(self, file):
+    def __init__(self, englishFile, chineseFile):
         """
         initialize corpus, BoW and TFIDF from file
         """
-        self.FAQ = pd.read_csv(file, keep_default_na=False, encoding='cp1252')
+        English_FAQ = pd.read_csv(englishFile, keep_default_na=False, encoding='cp1252')
+        # Chinese_FAQ = pd.read_csv(chineseFile, keep_default_na=False, encoding='GBK')
+        # Chinese_FAQ = pd.DataFrame(open(chineseFile).read().decode('gb18030','ignore'))
+        self.FAQ = English_FAQ
         self.questions = self.FAQ.question
         self.answers = self.FAQ.answer
         self.corpus = self.FAQ.question + ' ' + self.FAQ.answer
@@ -75,5 +78,8 @@ class Transformer:
         """
         index, similarity = self.tfidf_similarity(query)
         response = self.FAQ.answer.iloc[index]
+        if similarity < 0.5:
+            response = "Please wait! Our representative is on the way to help you!"
+
 
         return response

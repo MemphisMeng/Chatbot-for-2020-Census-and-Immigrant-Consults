@@ -1,10 +1,7 @@
 import string
 from nltk.stem import WordNetLemmatizer
-from nltk.corpus import stopwords
-import nltk
 
 
-nltk.download('stopwords')
 def lem(words):
     """
     Return a list of lemmas from word list
@@ -27,5 +24,5 @@ def text_process(mess, lemmas=True):
     """
     clean = [punc if punc not in string.punctuation else ' ' for punc in mess]
     clean = ''.join(clean)
-    clean = [word.lower() for word in clean.split() if word.lower() not in stopwords.words('english')]
+    clean = [word.lower() for word in clean.split()]
     return clean
