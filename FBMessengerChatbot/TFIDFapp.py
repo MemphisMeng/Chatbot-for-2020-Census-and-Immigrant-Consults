@@ -1,12 +1,14 @@
 from flask import Flask, request
 from pymessenger.bot import Bot
+import requests
 from FBMessengerChatbot.TFIDF.Transformer import Transformer
 
 app = Flask(__name__)
 ACCESS_TOKEN = 'EAAlE2KkA5dYBAI6q0sW3hOFsMBGhXpHHVuLK9cQLiwjdvhXjyZC7f0enLVm7mDVe3EPP6hObCCTK4dRTZBOQrqUFyErweY9Pf04ObTaZCJvJOSPYohhoFZBQjHxvVuy7vITHgv4whpZAnfS60pU56I4kdDC1D4vcbuHmgSaZAR92BUI8NIZBEVg'
 VERIFY_TOKEN = 'L1ZOlsiRrlBSbs/xFesH6jjkDm1OzJlwEmPa93iBNz4='
 bot = Bot(ACCESS_TOKEN)
-transformer = Transformer('FBMessengerChatbot/data/train/QnA.csv', 'FBMessengerChatbot/data/train/ChineseQnA.csv')
+transformer = Transformer('FBMessengerChatbot/data/train/QnA.csv', 'FBMessengerChatbot/data/train/ChineseQnA.txt',
+                          'FBMessengerChatbot/data/train/SpanishQnA.csv')
 
 
 # We will receive messages that Facebook sends our bot at this endpoint
@@ -33,35 +35,47 @@ def receive_message():
                             # greeting detected
                             if message['message']['nlp']['entities'].get('greetings') and \
                                     message['message']['nlp']['entities']['greetings'][0]['confidence'] >= 0.7:
-                                if 'en' in message['message']['nlp']['detected_locales'][0]['locale']:
-                                    bot.send_text_message(recipient_id, "Hello! Nice to meet you!")
-                                elif 'zh' in message['message']['nlp']['detected_locales'][0]['locale']:
-                                    bot.send_text_message(recipient_id, "您好！很高兴为您服务！")
-                                elif 'es' in message['message']['nlp']['detected_locales'][0]['locale']:
-                                    bot.send_text_message(recipient_id, "¡Mucho gusto! ¿Cómo estás?")
-                                continue
+                                if len(message['message']['nlp']['detected_locales']) != 0:
+                                    if 'en' in message['message']['nlp']['detected_locales'][0]['locale']:
+                                        bot.send_text_message(recipient_id, "Hello! Nice to meet you!")
+                                    elif 'zh' in message['message']['nlp']['detected_locales'][0]['locale']:
+                                        bot.send_text_message(recipient_id, "您好！很高兴为您服务！")
+                                    elif 'es' in message['message']['nlp']['detected_locales'][0]['locale']:
+                                        bot.send_text_message(recipient_id, "¡Mucho gusto! ¿Cómo estás?")
+                                    continue
                             # bye detected
                             if message['message']['nlp']['entities'].get('bye') and \
                                     message['message']['nlp']['entities']['bye'][0]['confidence'] >= 0.7:
-                                if 'en' in message['message']['nlp']['detected_locales'][0]['locale']:
-                                    bot.send_text_message(recipient_id, "See you next time!")
-                                elif 'zh' in message['message']['nlp']['detected_locales'][0]['locale']:
-                                    bot.send_text_message(recipient_id, "再见！")
-                                elif 'es' in message['message']['nlp']['detected_locales'][0]['locale']:
-                                    bot.send_text_message(recipient_id, "¡Adiós!")
-                                continue
+                                if len(message['message']['nlp']['detected_locales']) != 0:
+                                    if 'en' in message['message']['nlp']['detected_locales'][0]['locale']:
+                                        bot.send_text_message(recipient_id, "See you next time!")
+                                    elif 'zh' in message['message']['nlp']['detected_locales'][0]['locale']:
+                                        bot.send_text_message(recipient_id, "再见！")
+                                    elif 'es' in message['message']['nlp']['detected_locales'][0]['locale']:
+                                        bot.send_text_message(recipient_id, "¡Adiós!")
+                                    continue
                             # thank detected
                             if message['message']['nlp']['entities'].get('thanks') and \
                                     message['message']['nlp']['entities']['thanks'][0]['confidence'] >= 0.7:
-                                if 'en' in message['message']['nlp']['detected_locales'][0]['locale']:
-                                    bot.send_text_message(recipient_id, "You are welcome!")
-                                elif 'zh' in message['message']['nlp']['detected_locales'][0]['locale']:
-                                    bot.send_text_message(recipient_id, "不用谢！")
-                                elif 'es' in message['message']['nlp']['detected_locales'][0]['locale']:
-                                    bot.send_text_message(recipient_id, "¡De nada!")
-                                continue
-                        response = transformer.match_query(message['message'].get('text'))
-                        bot.send_text_message(recipient_id, response)
+                                if len(message['message']['nlp']['detected_locales']) != 0:
+                                    if 'en' in message['message']['nlp']['detected_locales'][0]['locale']:
+                                        bot.send_text_message(recipient_id, "You are welcome!")
+                                    elif 'zh' in message['message']['nlp']['detected_locales'][0]['locale']:
+                                        bot.send_text_message(recipient_id, "不用谢！")
+                                    elif 'es' in message['message']['nlp']['detected_locales'][0]['locale']:
+                                        bot.send_text_message(recipient_id, "¡De nada!")
+                                    continue
+
+                        response, similarity = transformer.match_query(message['message'].get('text'))
+                        if similarity < 0.5:
+                            persona_id = create_handler() # create a persona
+                            response = "Please wait! Our representative is on the way to help you!"
+                            bot.send_text_message(recipient_id, response)
+                        else:
+                            responses = response.split('|')
+                            for r in responses:
+                                if r != '':
+                                    bot.send_text_message(recipient_id, r)
                     # if user sends us a GIF, photo,video, or any other non-text item
                     if message['message'].get('attachments'):
                         i = 0
@@ -70,6 +84,32 @@ def receive_message():
                             i += 1
     return "Message Processed"
 
+
+@app.route("/personas", methods=['POST'])
+def create_handler():
+    request_body = {
+        'name': 'Harry P.',
+        'profile_picture_url': 'https://www.facebook.com/photo?fbid=854028385032438&set=a.129292634172687'
+    }
+    response = requests.post('https://graph.facebook.com/me/personas?access_token='+ACCESS_TOKEN,
+                             json=request_body).json()
+    return response
+
+
+@app.route("/messages", methods=['POST'])
+def invoke_handler(recipient, persona, message):
+    request_body = {
+        'recipient': {
+            'id': recipient
+        },
+        "message":{
+            "text": message
+        },
+        'persona_id': persona
+    }
+    response = requests.post('https://graph.facebook.com/me/personas?access_token=' + ACCESS_TOKEN,
+                             json=request_body).json()
+    return response
 
 def verify_fb_token(token_sent):
     # take token sent by facebook and verify it matches the verify token you sent
