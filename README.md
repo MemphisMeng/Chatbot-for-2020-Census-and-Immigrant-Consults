@@ -20,23 +20,17 @@
 <blockquote>
 <p>Example (Ubuntu)</p>
 </blockquote>
-<pre><code>
-$ sudo snap install --classic heroku
-
+<pre><code>$ sudo snap install --classic heroku
 </code></pre>
 <ol start="2">
 <li><a href="%5Bhttps://devcenter.heroku.com/articles/heroku-cli#getting-started%5D(https://devcenter.heroku.com/articles/heroku-cli#getting-started)">Login heroku account</a></li>
 </ol>
-<pre><code>
-$ heroku login
-
+<pre><code>$ heroku login
 </code></pre>
 <ol start="3">
 <li><a href="%5Bhttps://devcenter.heroku.com/articles/creating-apps#creating-a-named-app%5D(https://devcenter.heroku.com/articles/creating-apps#creating-a-named-app)">Create a heorku app</a></li>
 </ol>
-<pre><code>
-$ heroku create example
-
+<pre><code>$ heroku create example
 </code></pre>
 <ol start="4">
 <li>
@@ -65,14 +59,11 @@ $ heroku create example
 <p><a href="https://devcenter.heroku.com/articles/git#prerequisites-install-git-and-the-heroku-cli">Deploy</a> this project on the heroku end of your account</p>
 </li>
 </ol>
-<pre><code>
-$ git init
-
+<pre><code>$ git init
 $ git add .
-
 $ git commit -m "message"
-
 $ git push heroku master
-
 </code></pre>
+<h2 id="demo">Demo</h2>
+<p><img src="https://github.com/MemphisMeng/Chatbot-for-2020-Census-and-Immigrant-Consults/blob/master/images/demo.jpg" alt="enter image description here"></p>
 
