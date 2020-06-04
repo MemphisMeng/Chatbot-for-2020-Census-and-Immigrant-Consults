@@ -23,6 +23,8 @@ def receive_message():
     else:
         # get whatever message a user sent the bot
         output = request.get_json()
+        for item in output.items():
+            print(item)
         for event in output['entry']:
             messaging = event['messaging']
             for message in messaging:
@@ -75,7 +77,7 @@ def receive_message():
                             responses = response.split('|')
                             for r in responses:
                                 if r != '':
-                                    bot.send_text_message(recipient_id, r)
+                                    bot.send_text_message(recipient_id, r.strip())
                     # if user sends us a GIF, photo,video, or any other non-text item
                     if message['message'].get('attachments'):
                         i = 0
