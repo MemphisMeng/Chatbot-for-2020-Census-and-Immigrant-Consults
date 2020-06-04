@@ -46,7 +46,7 @@ $ heroku create example
 <p>Add a messenger product in the application</p>
 </li>
 </ol>
-<p><img src="https://github.com/jeanmidevacc/messenger-bot-python-flask-zappa-amazon/blob/master/pictures/setup_app.png" alt="alt text"></p>
+<p><img src="https://github.com/jeanmidevacc/messenger-bot-python-flask-zappa-amazon/blob/master/pictures/create_facebook_page.png" alt="alt text"></p>
 <ol start="6">
 <li>Create a Facebook page</li>
 </ol>
