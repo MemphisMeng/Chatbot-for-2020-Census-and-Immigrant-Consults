@@ -6,13 +6,14 @@
 <h1 id="welcome-to-resiliency-challenge">Welcome to Resiliency Challenge!</h1>
 <p>In this hackathon, we are going to develop an AI-based chatbot on Facebook messenger and Whatsapp, which is expected to propagate the information of 2020 US Census and COVID-19 to everyone in need, especially the non English speaking immigrants.</p>
 <h2 id="requirement">Requirement</h2>
-<p>Python3.6</p>
-<p>Flask==1.1.2</p>
-<p>ymessenger==0.0.7.0</p>
-<p>nltk</p>
-<p>pandas</p>
-<p>sklearn</p>
-<p>heroku</p>
+<p>Python3.6<br>
+Flask==1.1.2<br>
+ymessenger==0.0.7.0<br>
+nltk<br>
+pandas<br>
+sklearn<br>
+heroku<br>
+language-detector</p>
 <h2 id="tutorial">Tutorial</h2>
 <ol>
 <li>Install <a href="%5Bhttps://devcenter.heroku.com/articles/heroku-cli#download-and-install%5D(https://devcenter.heroku.com/articles/heroku-cli#download-and-install)">heroku</a></li>
