@@ -2,10 +2,12 @@ from flask import Flask, request
 from pymessenger.bot import Bot
 import requests
 from FBMessengerChatbot.TFIDF.Transformer import Transformer
-from language_detector import detect_language
+from langdetect import detect
+from langdetect import DetectorFactory
 import os
 
 app = Flask(__name__)
+DetectorFactory.seed = 0
 ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
 VERIFY_TOKEN = os.environ['VERIFY_TOKEN']
 bot = Bot(ACCESS_TOKEN)
@@ -25,8 +27,6 @@ def receive_message():
     else:
         # get whatever message a user sent the bot
         output = request.get_json()
-        for item in output.items():
-            print(item)
         for event in output['entry']:
             messaging = event['messaging']
             for message in messaging:
@@ -39,36 +39,33 @@ def receive_message():
                             # greeting detected
                             if message['message']['nlp']['entities'].get('greetings') and \
                                     message['message']['nlp']['entities']['greetings'][0]['confidence'] >= 0.9:
-                                if len(message['message']['nlp']['detected_locales']) != 0:
-                                    if detect_language(message['message'].get('text')) == 'English':
-                                        bot.send_text_message(recipient_id, "Hello! Nice to meet you!")
-                                    elif detect_language(message['message'].get('text')) == 'Mandarin':
-                                        bot.send_text_message(recipient_id, "您好！很高兴为您服务！")
-                                    elif detect_language(message['message'].get('text')) == 'Spanish':
-                                        bot.send_text_message(recipient_id, "¡Mucho gusto! ¿Cómo estás?")
-                                    continue
+                                if detect(message['message'].get('text')) == 'en':
+                                    bot.send_text_message(recipient_id, "Hello! Nice to meet you!")
+                                elif 'zh' in detect(message['message'].get('text')):
+                                    bot.send_text_message(recipient_id, "您好！很高兴为您服务！")
+                                elif detect(message['message'].get('text')) == 'es':
+                                    bot.send_text_message(recipient_id, "¡Mucho gusto! ¿Cómo estás?")
+                                continue
                             # bye detected
                             if message['message']['nlp']['entities'].get('bye') and \
                                     message['message']['nlp']['entities']['bye'][0]['confidence'] >= 0.9:
-                                if len(message['message']['nlp']['detected_locales']) != 0:
-                                    if detect_language(message['message'].get('text')) == 'English':
-                                        bot.send_text_message(recipient_id, "See you next time!")
-                                    elif detect_language(message['message'].get('text')) == 'Mandarin':
-                                        bot.send_text_message(recipient_id, "再见！")
-                                    elif detect_language(message['message'].get('text')) == 'Spanish':
-                                        bot.send_text_message(recipient_id, "¡Adiós!")
-                                    continue
+                                if detect(message['message'].get('text')) == 'en':
+                                    bot.send_text_message(recipient_id, "See you next time!")
+                                elif 'zh' in detect(message['message'].get('text')):
+                                    bot.send_text_message(recipient_id, "再见！")
+                                elif detect(message['message'].get('text')) == 'es':
+                                    bot.send_text_message(recipient_id, "¡Adiós!")
+                                continue
                             # thank detected
                             if message['message']['nlp']['entities'].get('thanks') and \
                                     message['message']['nlp']['entities']['thanks'][0]['confidence'] >= 0.9:
-                                if len(message['message']['nlp']['detected_locales']) != 0:
-                                    if detect_language(message['message'].get('text')) == 'English':
-                                        bot.send_text_message(recipient_id, "You are welcome!")
-                                    elif detect_language(message['message'].get('text')) == 'Mandarin':
-                                        bot.send_text_message(recipient_id, "不用谢！")
-                                    elif detect_language(message['message'].get('text')) == 'Spanish':
-                                        bot.send_text_message(recipient_id, "¡De nada!")
-                                    continue
+                                if detect(message['message'].get('text')) == 'en':
+                                    bot.send_text_message(recipient_id, "You are welcome!")
+                                elif 'zh' in detect(message['message'].get('text')):
+                                    bot.send_text_message(recipient_id, "不用谢！")
+                                elif detect(message['message'].get('text')) == 'es':
+                                    bot.send_text_message(recipient_id, "¡De nada!")
+                                continue
 
                         response, similarity = transformer.match_query(message['message'].get('text'))
                         if similarity < 0.5:
