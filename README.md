@@ -13,7 +13,7 @@ nltk<br>
 pandas<br>
 sklearn<br>
 heroku<br>
-language-detector</p>
+langdetect</p>
 <h2 id="tutorial">Tutorial</h2>
 <ol>
 <li>Install <a href="%5Bhttps://devcenter.heroku.com/articles/heroku-cli#download-and-install%5D(https://devcenter.heroku.com/articles/heroku-cli#download-and-install)">heroku</a></li>
