@@ -17,7 +17,7 @@ def lem(words):
 
 def text_process(mess, lemmas=True):
     """
-    Return a list of tokens in mess (string), without stopwords or punctuations
+    Return a list of tokens in mess (string), without punctuations
     :param mess:
     :param lemmas: True when we need to lemmatize words
     :return: tokenized list

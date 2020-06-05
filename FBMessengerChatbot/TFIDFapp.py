@@ -6,10 +6,15 @@ from langdetect import detect
 from langdetect import DetectorFactory
 import os
 
-app = Flask(__name__)
+
+# enforce consistent results of detection
 DetectorFactory.seed = 0
+
+# define on heroku settings tab
 ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
 VERIFY_TOKEN = os.environ['VERIFY_TOKEN']
+
+app = Flask(__name__)
 bot = Bot(ACCESS_TOKEN)
 transformer = Transformer('FBMessengerChatbot/data/train/QnA.csv', 'FBMessengerChatbot/data/train/ChineseQnA.txt',
                           'FBMessengerChatbot/data/train/SpanishQnA.csv')
@@ -39,10 +44,13 @@ def receive_message():
                             # greeting detected
                             if message['message']['nlp']['entities'].get('greetings') and \
                                     message['message']['nlp']['entities']['greetings'][0]['confidence'] >= 0.9:
+                                # detected English
                                 if detect(message['message'].get('text')) == 'en':
                                     bot.send_text_message(recipient_id, "Hello! Nice to meet you!")
+                                # detected Chinese
                                 elif 'zh' in detect(message['message'].get('text')):
                                     bot.send_text_message(recipient_id, "您好！很高兴为您服务！")
+                                # detected Spanish
                                 elif detect(message['message'].get('text')) == 'es':
                                     bot.send_text_message(recipient_id, "¡Mucho gusto! ¿Cómo estás?")
                                 continue
@@ -68,6 +76,7 @@ def receive_message():
                                 continue
 
                         response, similarity = transformer.match_query(message['message'].get('text'))
+                        # no acceptable answers found in the pool
                         if similarity < 0.5:
                             persona_id = create_handler() # create a persona
                             response = "Please wait! Our representative is on the way to help you!"
@@ -111,6 +120,7 @@ def invoke_handler(recipient, persona, message):
     response = requests.post('https://graph.facebook.com/me/personas?access_token=' + ACCESS_TOKEN,
                              json=request_body).json()
     return response
+
 
 def verify_fb_token(token_sent):
     # take token sent by facebook and verify it matches the verify token you sent
