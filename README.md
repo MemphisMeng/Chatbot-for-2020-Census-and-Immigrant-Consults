@@ -8,7 +8,7 @@
 <h2 id="requirement">Requirement</h2>
 <p>Python3.6<br>
 Flask==1.1.2<br>
-ymessenger==0.0.7.0<br>
+pymessenger==0.0.7.0<br>
 nltk<br>
 pandas<br>
 sklearn<br>
