@@ -29,6 +29,7 @@ def receive_message():
     else:
         # get whatever message a user sent the bot
         output = request.get_json()
+        print(output)
         for event in output['entry']:
             messaging = event['messaging']
             for message in messaging:
@@ -38,60 +39,66 @@ def receive_message():
                     if message['message'].get('text'):
                         # NLP detection
                         if message['message'].get('nlp'):
-                            # detected English
-                            if 'en' in message['message']['nlp']['detected_locales'][0]['locale']:
-                                # greeting detected
-                                if message['message']['nlp']['entities'].get('greetings') and \
-                                        message['message']['nlp']['entities']['greetings'][0]['confidence'] >= 0.9:
-                                    bot.send_text_message(recipient_id, "Hello! Nice to meet you!")
-                                    continue
-                                # bye detected
-                                elif message['message']['nlp']['entities'].get('bye') and \
-                                        message['message']['nlp']['entities']['bye'][0]['confidence'] >= 0.9:
-                                    bot.send_text_message(recipient_id, "See you next time!")
-                                    continue
-                                # thank detected
-                                elif message['message']['nlp']['entities'].get('thanks') and \
-                                        message['message']['nlp']['entities']['thanks'][0]['confidence'] >= 0.9:
-                                    bot.send_text_message(recipient_id, "You are welcome!")
-                                    continue
-                            # detected Spanish
-                            elif 'es' in message['message']['nlp']['detected_locales'][0]['locale']:
-                                # greeting detected
-                                if message['message']['nlp']['entities'].get('greetings') and \
-                                        message['message']['nlp']['entities']['greetings'][0]['confidence'] >= 0.6:
-                                    bot.send_text_message(recipient_id, "¡Mucho gusto! ¿Cómo estás?")
-                                    continue
-                                elif message['message']['nlp']['entities'].get('bye') and \
-                                        message['message']['nlp']['entities']['bye'][0]['confidence'] >= 0.6:
-                                    bot.send_text_message(recipient_id, "¡Adiós!")
-                                    continue
-                                elif message['message']['nlp']['entities'].get('thanks') and \
-                                        message['message']['nlp']['entities']['thanks'][0]['confidence'] >= 0.6:
-                                    bot.send_text_message(recipient_id, "¡De nada!")
-                                    continue
-                            # detected Chinese
-                            elif 'zh' in message['message']['nlp']['detected_locales'][0]['locale']:
-                                # greeting detected
-                                if message['message']['nlp']['entities'].get('greetings') and \
-                                        message['message']['nlp']['entities']['greetings'][0]['confidence'] >= 0.5:
-                                    bot.send_text_message(recipient_id, "您好！很高兴为您服务！")
-                                    continue
-                                elif message['message']['nlp']['entities'].get('bye') and \
-                                        message['message']['nlp']['entities']['bye'][0]['confidence'] >= 0.5:
-                                    bot.send_text_message(recipient_id, "再见！")
-                                    continue
-                                elif message['message']['nlp']['entities'].get('thanks') and \
-                                        message['message']['nlp']['entities']['thanks'][0]['confidence'] >= 0.5:
-                                    bot.send_text_message(recipient_id, "不用谢！")
-                                    continue
+                            try:
+                                # detected English
+                                if 'en' in message['message']['nlp']['detected_locales'][0]['locale']:
+                                    # greeting detected
+                                    if message['message']['nlp']['entities'].get('greetings') and \
+                                            message['message']['nlp']['entities']['greetings'][0]['confidence'] >= 0.9:
+                                        bot.send_text_message(recipient_id, "Hello! Nice to meet you!")
+                                        continue
+                                    # bye detected
+                                    elif message['message']['nlp']['entities'].get('bye') and \
+                                            message['message']['nlp']['entities']['bye'][0]['confidence'] >= 0.9:
+                                        bot.send_text_message(recipient_id, "See you next time!")
+                                        continue
+                                    # thank detected
+                                    elif message['message']['nlp']['entities'].get('thanks') and \
+                                            message['message']['nlp']['entities']['thanks'][0]['confidence'] >= 0.9:
+                                        bot.send_text_message(recipient_id, "You are welcome!")
+                                        continue
+                                # detected Spanish
+                                elif 'es' in message['message']['nlp']['detected_locales'][0]['locale']:
+                                    # greeting detected
+                                    if message['message']['nlp']['entities'].get('greetings') and \
+                                            message['message']['nlp']['entities']['greetings'][0]['confidence'] >= 0.6:
+                                        bot.send_text_message(recipient_id, "¡Mucho gusto! ¿Cómo estás?")
+                                        continue
+                                    elif message['message']['nlp']['entities'].get('bye') and \
+                                            message['message']['nlp']['entities']['bye'][0]['confidence'] >= 0.6:
+                                        bot.send_text_message(recipient_id, "¡Adiós!")
+                                        continue
+                                    elif message['message']['nlp']['entities'].get('thanks') and \
+                                            message['message']['nlp']['entities']['thanks'][0]['confidence'] >= 0.6:
+                                        bot.send_text_message(recipient_id, "¡De nada!")
+                                        continue
+                                # detected Chinese
+                                elif 'zh' in message['message']['nlp']['detected_locales'][0]['locale']:
+                                    # greeting detected
+                                    if message['message']['nlp']['entities'].get('greetings') and \
+                                            message['message']['nlp']['entities']['greetings'][0]['confidence'] >= 0.5:
+                                        bot.send_text_message(recipient_id, "您好！很高兴为您服务！")
+                                        continue
+                                    elif message['message']['nlp']['entities'].get('bye') and \
+                                            message['message']['nlp']['entities']['bye'][0]['confidence'] >= 0.5:
+                                        bot.send_text_message(recipient_id, "再见！")
+                                        continue
+                                    elif message['message']['nlp']['entities'].get('thanks') and \
+                                            message['message']['nlp']['entities']['thanks'][0]['confidence'] >= 0.5:
+                                        bot.send_text_message(recipient_id, "不用谢！")
+                                        continue
+                            except:
+                                print('NLP is not deployed.')
 
                         response, similarity = transformer.match_query(message['message'].get('text'))
-                        if 'zh' in message['message']['nlp']['detected_locales'][0]['locale']:
-                            translated_query = en_translator.translate(message['message'].get('text'))
-                            response, similarity = transformer.match_query(translated_query)
-                            response = zh_translator.translate(response)
-
+                        print('first similarity', similarity)
+                        print(message['message'])
+                        if message['message'].get('nlp'):
+                            if 'zh' in message['message']['nlp']['detected_locales'][0]['locale']:
+                                translated_query = en_translator.translate(message['message'].get('text'))
+                                response, similarity = transformer.match_query(translated_query)
+                                print('second similarity', similarity)
+                                response = zh_translator.translate(response)
 
                         # no acceptable answers found in the pool
                         if similarity < 0.5:
@@ -125,3 +132,92 @@ if __name__ == "__main__":
 
 
 
+{'object': 'page',
+ 'entry': [
+     {
+         'id': '105629597827265',
+         'time': 1592007350017,
+         'messaging': [
+             {
+                 'sender':
+                     {
+                         'id':
+                             '2963436693777497'
+                     },
+                 'recipient':
+                     {
+                         'id':
+                             '105629597827265'
+                     },
+                 'timestamp':
+                     1592007349875,
+                 'message':
+                     {
+                         'mid':
+                             'm_IkVXlnS6rQj_p-IlyxXlUn710B7O70yiC_P4WkhASptS2QQ0Z1vFm_jM08BCZWVahnOdWKuVX9sFV7drqp3HzQ',
+                         'text':
+                             'Hello',
+                         'nlp':
+                             {
+                                 'entities':
+                                     {
+                                         'sentiment':
+                                             [
+                                                 {
+                                                     'confidence':
+                                                         0.54351812601089,
+                                                     'value':
+                                                         'positive',
+                                                     '_entity':
+                                                         'sentiment'
+                                                 }
+                                             ],
+                                         'greetings':
+                                             [
+                                                 {
+                                                     'confidence':
+                                                         0.99983274936676,
+                                                     'value':
+                                                         'true',
+                                                     '_entity':
+                                                         'greetings'
+                                                 }
+                                             ],
+                                         'location':
+                                             [
+                                                 {
+                                                     'suggested':
+                                                         True,
+                                                     'confidence':
+                                                         0.36278835781712,
+                                                     'value':
+                                                         'Hello',
+                                                     'type':
+                                                         'value',
+                                                     '_entity':
+                                                         'location',
+                                                     '_body':
+                                                         'Hello',
+                                                     '_start':
+                                                         0,
+                                                     '_end':
+                                                         5
+                                                 }
+                                             ]
+                                     },
+                                 'detected_locales':
+                                     [
+                                         {
+                                             'locale':
+                                                 'en_XX',
+                                             'confidence':
+                                                 0.8086
+                                         }
+                                     ]
+                             }
+                     }
+             }
+         ]
+     }
+ ]
+ }
