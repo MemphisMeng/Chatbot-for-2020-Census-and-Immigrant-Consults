@@ -4,13 +4,15 @@ from FBMessengerChatbot.TFIDF.Transformer import Transformer
 from translate import Translator
 import os
 
-
 en_translator = Translator(to_lang="en")
 zh_translator = Translator(to_lang='zh')
 es_translator = Translator(to_lang='es')
 # define on heroku settings tab
-ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
-VERIFY_TOKEN = os.environ['VERIFY_TOKEN']
+# ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
+# VERIFY_TOKEN = os.environ['VERIFY_TOKEN']
+
+ACCESS_TOKEN = 'EAAERRa4ZAQC0BAJooT5yTdntLZAhoixuf7JP9pNQF3ZCfrCZCQJYaLviDJ376ZAxZAXLZB2JLnMSMNNVOVvX4Xm8t6zButlCNh8zJITBczZAcRz8MMKZBU8E6hbzTNdFRgScrsccr3X5VJrIbK30JIWUNYAWaJnsZC6mgY07fdrrT1JyjTil55kJ4fesAeSDgeebsZD'
+VERIFY_TOKEN = 'L1ZOlsiRrlBSbs/xFesH6jjkDm1OzJlwEmPa93iBNz4='
 app = Flask(__name__)
 bot = Bot(ACCESS_TOKEN)
 transformer = Transformer('FBMessengerChatbot/data/train/QnA.csv', 'FBMessengerChatbot/data/train/ChineseQnA.txt',
@@ -29,6 +31,7 @@ def receive_message():
     else:
         # get whatever message a user sent the bot
         output = request.get_json()
+        print('OUTPUT', output)
         for event in output['entry']:
             messaging = event['messaging']
             for message in messaging:
@@ -86,7 +89,7 @@ def receive_message():
                                             message['message']['nlp']['entities']['thanks'][0]['confidence'] >= 0.5:
                                         bot.send_text_message(recipient_id, "不用谢！")
                                         continue
-                            except:
+                            except KeyError:
                                 print('NLP is not deployed.')
 
                         response, similarity = transformer.match_query(message['message'].get('text'))
