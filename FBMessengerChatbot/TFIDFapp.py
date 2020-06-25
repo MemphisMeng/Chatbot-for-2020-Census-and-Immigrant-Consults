@@ -8,11 +8,10 @@ en_translator = Translator(to_lang="en")
 zh_translator = Translator(to_lang='zh')
 es_translator = Translator(to_lang='es')
 # define on heroku settings tab
-# ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
-# VERIFY_TOKEN = os.environ['VERIFY_TOKEN']
+ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
+VERIFY_TOKEN = os.environ['VERIFY_TOKEN']
 
-ACCESS_TOKEN = 'EAAERRa4ZAQC0BAJooT5yTdntLZAhoixuf7JP9pNQF3ZCfrCZCQJYaLviDJ376ZAxZAXLZB2JLnMSMNNVOVvX4Xm8t6zButlCNh8zJITBczZAcRz8MMKZBU8E6hbzTNdFRgScrsccr3X5VJrIbK30JIWUNYAWaJnsZC6mgY07fdrrT1JyjTil55kJ4fesAeSDgeebsZD'
-VERIFY_TOKEN = 'L1ZOlsiRrlBSbs/xFesH6jjkDm1OzJlwEmPa93iBNz4='
+
 app = Flask(__name__)
 bot = Bot(ACCESS_TOKEN)
 transformer = Transformer('FBMessengerChatbot/data/train/QnA.csv', 'FBMessengerChatbot/data/train/ChineseQnA.txt',
