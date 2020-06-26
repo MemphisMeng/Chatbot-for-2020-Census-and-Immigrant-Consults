@@ -14,8 +14,8 @@ VERIFY_TOKEN = os.environ['VERIFY_TOKEN']
 
 app = Flask(__name__)
 bot = Bot(ACCESS_TOKEN)
-transformer = Transformer('FBMessengerChatbot/data/train/QnA.csv', 'FBMessengerChatbot/data/train/testtest.csv',
-                          'FBMessengerChatbot/data/train/TraditionalQnA.txt', 'FBMessengerChatbot/data/train/SpanishQnA.csv')
+transformer = Transformer('FBMessengerChatbot/data/train/QnA.csv', 'FBMessengerChatbot/data/train/SimplifiedChineseQnA.csv',
+                          'FBMessengerChatbot/data/train/traditionalChineseQnA.csv', 'FBMessengerChatbot/data/train/SpanishQnA.csv')
 
 
 # We will receive messages that Facebook sends our bot at this endpoint

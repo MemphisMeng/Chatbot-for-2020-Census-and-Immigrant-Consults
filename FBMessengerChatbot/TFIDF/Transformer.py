@@ -15,22 +15,9 @@ class Transformer:
         English_FAQ = pd.read_csv(englishFile, keep_default_na=False, encoding='cp1252')
         Spanish_FAQ = pd.read_csv(spanishFile, keep_default_na=False, encoding='cp1252')
         simplifiedChinese_FAQ = pd.read_csv(simplifiedChineseFile, keep_default_na=False, encoding='utf-16')
+        traditionalChinese_FAQ = pd.read_csv(traditionalChineseFile, keep_default_na=False, encoding='utf-16')
 
-        # with open(simplifiedChineseFile, 'rb') as f:
-        #     simplifiedChinese_FAQ = f.read()
-        # simplifiedChinese_FAQ  = simplifiedChinese_FAQ .decode("utf-16").encode('gb18030')
-        # with open(traditionalChineseFile, 'rb') as f:
-        #     traditionalChinese_FAQ = f.read()
-        # traditionalChinese_FAQ  = traditionalChinese_FAQ .decode("utf-16").encode('big5hkscs')
-        # traditionalChinese_FAQ  = traditionalChinese_FAQ .split("\r\n")
-        # for i in range(1, len(traditionalChinese_FAQ)):
-        #     traditionalChinese_FAQ[i] = traditionalChinese_FAQ[i].strip()
-        #     traditionalChinese_FAQ[i] = traditionalChinese_FAQ[i].split('\t')
-        # del simplifiedChinese_FAQ[0]
-        # del traditionalChinese_FAQ[0]
-        # simplifiedChinese_FAQ = pd.DataFrame(simplifiedChinese_FAQ, columns=['question', 'answer'])
-        # traditionalChinese_FAQ = pd.DataFrame(traditionalChinese_FAQ, columns=['question', 'answer'])
-        self.FAQ = pd.concat([English_FAQ, simplifiedChinese_FAQ, Spanish_FAQ], ignore_index=True)
+        self.FAQ = pd.concat([English_FAQ, simplifiedChinese_FAQ, traditionalChinese_FAQ, Spanish_FAQ], ignore_index=True)
         self.questions = self.FAQ.question
         self.answers = self.FAQ.answer
         self.corpus = self.FAQ.question + ' ' + self.FAQ.answer
