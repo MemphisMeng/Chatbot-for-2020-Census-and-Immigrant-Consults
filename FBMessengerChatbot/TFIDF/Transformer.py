@@ -34,6 +34,10 @@ class Transformer:
         self.questions = self.FAQ.question
         self.answers = self.FAQ.answer
         self.corpus = self.FAQ.question + ' ' + self.FAQ.answer
+
+        # impute
+        self.questions, self.answers, self.corpus = self.questions.fillna(' '), self.answers.fillna(' '), self.corpus.fillna(' ')
+
         # for questions
         self.question_BoW_transformer = CountVectorizer(analyzer=text_process).fit(self.questions)
         self.question_BoW = self.question_BoW_transformer.transform(self.questions) # count the number of each word appearing in the questions
