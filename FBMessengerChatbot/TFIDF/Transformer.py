@@ -17,7 +17,7 @@ class Transformer:
 
         with open(chineseFile, 'rb') as f:
             Chinese_FAQ = f.read()
-        Chinese_FAQ  = Chinese_FAQ .decode("utf-16")
+        Chinese_FAQ  = Chinese_FAQ .decode("utf-16").encode('gb2312')
         Chinese_FAQ  = Chinese_FAQ .split("\r\n")
         for i in range(1, len(Chinese_FAQ)):
             Chinese_FAQ[i] = Chinese_FAQ[i].strip()
