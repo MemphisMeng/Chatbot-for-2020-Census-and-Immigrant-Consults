@@ -14,7 +14,7 @@ VERIFY_TOKEN = os.environ['VERIFY_TOKEN']
 
 app = Flask(__name__)
 bot = Bot(ACCESS_TOKEN)
-transformer = Transformer('FBMessengerChatbot/data/train/QnA.csv', 'FBMessengerChatbot/data/train/ChineseQnA.txt',
+transformer = Transformer('FBMessengerChatbot/data/train/QnA.csv', 'FBMessengerChatbot/data/train/testtest.csv',
                           'FBMessengerChatbot/data/train/TraditionalQnA.txt', 'FBMessengerChatbot/data/train/SpanishQnA.csv')
 
 
