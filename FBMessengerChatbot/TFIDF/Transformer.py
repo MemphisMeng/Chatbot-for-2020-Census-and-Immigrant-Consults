@@ -25,7 +25,7 @@ class Transformer:
         # for i in range(1, len(traditionalChinese_FAQ)):
         #     traditionalChinese_FAQ[i] = traditionalChinese_FAQ[i].strip()
         #     traditionalChinese_FAQ[i] = traditionalChinese_FAQ[i].split('\t')
-        # del simplifiedChinese_FAQ[0]
+        del simplifiedChinese_FAQ[0]
         # del traditionalChinese_FAQ[0]
         simplifiedChinese_FAQ = pd.DataFrame(simplifiedChinese_FAQ, columns=['question', 'answer'])
         # traditionalChinese_FAQ = pd.DataFrame(traditionalChinese_FAQ, columns=['question', 'answer'])
