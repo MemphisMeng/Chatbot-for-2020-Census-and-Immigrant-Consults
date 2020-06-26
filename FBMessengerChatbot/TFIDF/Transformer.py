@@ -17,7 +17,7 @@ class Transformer:
 
         with open(simplifiedChineseFile, 'rb') as f:
             simplifiedChinese_FAQ = f.read()
-        simplifiedChinese_FAQ  = simplifiedChinese_FAQ .decode("utf-16").encode('gbk')
+        simplifiedChinese_FAQ  = simplifiedChinese_FAQ .decode("utf-16").encode('gb18030')
         # with open(traditionalChineseFile, 'rb') as f:
         #     traditionalChinese_FAQ = f.read()
         # traditionalChinese_FAQ  = traditionalChinese_FAQ .decode("utf-16").encode('big5hkscs')
