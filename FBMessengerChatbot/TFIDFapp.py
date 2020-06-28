@@ -79,14 +79,17 @@ def receive_message():
                                     if message['message']['nlp']['entities'].get('greetings') and \
                                             message['message']['nlp']['entities']['greetings'][0]['confidence'] >= 0.6:
                                         bot.send_text_message(recipient_id, "您好！很高兴为您服务！")
+                                        print(message['message']['nlp']['entities'])
                                         continue
                                     elif message['message']['nlp']['entities'].get('bye') and \
                                             message['message']['nlp']['entities']['bye'][0]['confidence'] >= 0.6:
                                         bot.send_text_message(recipient_id, "再见！")
+                                        print(message['message']['nlp']['entities'])
                                         continue
                                     elif message['message']['nlp']['entities'].get('thanks') and \
                                             message['message']['nlp']['entities']['thanks'][0]['confidence'] >= 0.6:
                                         bot.send_text_message(recipient_id, "不用谢！")
+                                        print(message['message']['nlp']['entities'])
                                         continue
                             except KeyError:
                                 print('NLP is not deployed.')
