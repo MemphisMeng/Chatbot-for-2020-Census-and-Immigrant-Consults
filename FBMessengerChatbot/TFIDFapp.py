@@ -77,15 +77,15 @@ def receive_message():
                                 elif 'zh' in message['message']['nlp']['detected_locales'][0]['locale']:
                                     # greeting detected
                                     if message['message']['nlp']['entities'].get('greetings') and \
-                                            message['message']['nlp']['entities']['greetings'][0]['confidence'] >= 0.5:
+                                            message['message']['nlp']['entities']['greetings'][0]['confidence'] >= 0.6:
                                         bot.send_text_message(recipient_id, "您好！很高兴为您服务！")
                                         continue
                                     elif message['message']['nlp']['entities'].get('bye') and \
-                                            message['message']['nlp']['entities']['bye'][0]['confidence'] >= 0.5:
+                                            message['message']['nlp']['entities']['bye'][0]['confidence'] >= 0.6:
                                         bot.send_text_message(recipient_id, "再见！")
                                         continue
                                     elif message['message']['nlp']['entities'].get('thanks') and \
-                                            message['message']['nlp']['entities']['thanks'][0]['confidence'] >= 0.5:
+                                            message['message']['nlp']['entities']['thanks'][0]['confidence'] >= 0.6:
                                         bot.send_text_message(recipient_id, "不用谢！")
                                         continue
                             except KeyError:
