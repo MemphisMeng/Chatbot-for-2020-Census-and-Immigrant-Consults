@@ -3,68 +3,22 @@
 
 ---
 
-<h1 id="welcome-to-resiliency-challenge">Welcome to Resiliency Challenge!</h1>
-<p>In this hackathon, we are going to develop an AI-based chatbot on Facebook messenger and Whatsapp, which is expected to propagate the information of 2020 US Census and COVID-19 to everyone in need, especially the non English speaking immigrants.</p>
-<h2 id="requirement">Requirement</h2>
-<p>Python3.6<br>
-Flask==1.1.2<br>
-pymessenger==0.0.7.0<br>
-nltk<br>
-pandas<br>
-sklearn<br>
-heroku<br>
-langdetect</p>
-<h2 id="tutorial">Tutorial</h2>
-<ol>
-<li>Install <a href="%5Bhttps://devcenter.heroku.com/articles/heroku-cli#download-and-install%5D(https://devcenter.heroku.com/articles/heroku-cli#download-and-install)">heroku</a></li>
-</ol>
-<blockquote>
-<p>Example (Ubuntu)</p>
-</blockquote>
-<pre><code>$ sudo snap install --classic heroku
-</code></pre>
-<ol start="2">
-<li><a href="%5Bhttps://devcenter.heroku.com/articles/heroku-cli#getting-started%5D(https://devcenter.heroku.com/articles/heroku-cli#getting-started)">Login heroku account</a></li>
-</ol>
-<pre><code>$ heroku login
-</code></pre>
-<ol start="3">
-<li><a href="%5Bhttps://devcenter.heroku.com/articles/creating-apps#creating-a-named-app%5D(https://devcenter.heroku.com/articles/creating-apps#creating-a-named-app)">Create a heorku app</a></li>
-</ol>
-<pre><code>$ heroku create example
-</code></pre>
-<ol start="4">
-<li>
-<p>Setup a <a href="https://developers.facebook.com/">Facebook application</a> in the developer</p>
-</li>
-<li>
-<p>Add a messenger product in the application</p>
-</li>
-</ol>
-<p><img src="https://github.com/jeanmidevacc/messenger-bot-python-flask-zappa-amazon/blob/master/pictures/create_facebook_page.png" alt="alt text"></p>
-<ol start="6">
-<li>Create a Facebook page</li>
-</ol>
-<p><img src="https://github.com/MemphisMeng/Chatbot-for-2020-Census-and-Immigrant-Consults/blob/master/images/setup_app.png" alt="alt text"></p>
-<ol start="7">
-<li>
-<p>On the developer platform, click the “Generate Token” and copy the token for further use<img src="https://github.com/MemphisMeng/Chatbot-for-2020-Census-and-Immigrant-Consults/blob/master/images/ACCESS_TOKEN.png" alt="alt text"></p>
-</li>
-<li>
-<p>On the settings tab of the app that you created, click “Config Vars”<img src="https://github.com/MemphisMeng/Chatbot-for-2020-Census-and-Immigrant-Consults/blob/master/images/Config_vars.png" alt="enter image description here"></p>
-</li>
-<li>
-<p>Set two variables, ACCESS_TOKEN=&lt;the  token  you  copy  in  the  developer  platform&gt;, VERFIY_TOKEN=&lt;CUSTOMIZED&gt;(make sure its length is between 16 and 32)<img src="https://github.com/MemphisMeng/Chatbot-for-2020-Census-and-Immigrant-Consults/blob/master/images/vars.png" alt="enter image description here"></p>
-</li>
-<li>
-<p><a href="https://devcenter.heroku.com/articles/git#prerequisites-install-git-and-the-heroku-cli">Deploy</a> this project on the heroku end of your account</p>
-</li>
-</ol>
-<pre><code>$ git init
-$ git add .
-$ git commit -m "message"
-$ git push heroku master
-</code></pre>
-<h2 id="demo">Demo</h2>
-<p><img src="https://github.com/MemphisMeng/Chatbot-for-2020-Census-and-Immigrant-Consults/blob/master/images/demo.jpg" alt="enter image description here"></p>
+<h1 id="global-wheat-head-detection-challenge">Global Wheat Head Detection Challenge</h1>
+<h2 id="introduction">Introduction</h2>
+<p>This project examines efficientDet’s performance in the use of global wheat head detection, which outperforms the state-of-art YOLO v3 and Faster RCNN. This function is believed to be useful when being used to estimate the density and size of wheat heads in different varieties and to assess health and maturity when making management decisions in their fields by farmers.</p>
+<h2 id="eda">EDA</h2>
+<p>The data set of this project is provided by multiple organizations. Thus there are variances within the images from brightness to style. This can be seen in the following image.<br>
+<img src="https://github.com/MemphisMeng/Global-Wheat-Detection/blob/master/images/__results___46_1.png" alt="enter image description here"><br>
+This should be noticed because I am going to apply ensemble learning so that I would also split the data.</p>
+<h2 id="preprocessing">Preprocessing</h2>
+<p>There are only approximately 1000 photos provided, which may not be sufficient to train a model. Here I used library Albumentations for the augmentation, which adds several effects to an image on the fly so that we can access to a large volume of dataset without collecting more actual data. The following image illustrates some effects that I am going to use:<br>
+<img src="https://github.com/MemphisMeng/Global-Wheat-Detection/blob/master/images/__results___59_0.png" alt="enter image description here"></p>
+<p>Here is how it looks when I combined all the selected images together:<br>
+<img src="https://github.com/MemphisMeng/Global-Wheat-Detection/blob/master/images/__results___67_0.png" alt="enter image description here"></p>
+<h2 id="data-split">Data Split</h2>
+<p>As I mentioned before, there are photos collected by different organizations. To avoid biases generated by the data, the ideal splitting is to split the data without affecting its inside portions. Therefore I used Stratified K fold which remains the distribution of each organization in every single split.<br>
+<img src="https://github.com/MemphisMeng/Global-Wheat-Detection/blob/master/images/__results___3_1.png" alt="enter image description here"><br>
+As the figure shows, the overall disitrbution is almost the same as the one in one of the splits. Then what I did is implementing efficientDet in each split while flipping the images differently.</p>
+<h2 id="ensemble-learning">Ensemble Learning</h2>
+<p>After obtaing all the models trained from the previous steps, the final step is to ensemble them together and use the combined modelt to test on our test set. Our score is approximately 0.74 (top 10%).</p>
 
