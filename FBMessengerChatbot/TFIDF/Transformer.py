@@ -1,6 +1,5 @@
 import numpy as np
 import pandas as pd
-from FBMessengerChatbot.TFIDF.PreProcessing import text_process
 import jieba
 from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn.feature_extraction.text import CountVectorizer
