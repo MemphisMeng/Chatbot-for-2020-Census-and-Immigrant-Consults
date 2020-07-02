@@ -95,7 +95,7 @@ def receive_message():
                             except KeyError:
                                 print('NLP is not deployed.')
                         print(isinstance(message['message'].get('text'), unicode))
-                        response, similarity = transformer.match_query(message['message'].get('text').encode('utf-16'))
+                        response, similarity = transformer.match_query(message['message'].get('text').decode('utf-8').encode('utf-16'))
                         
                         # if message['message'].get('nlp'):
                         #     if 'zh' in message['message']['nlp']['detected_locales'][0]['locale']:
