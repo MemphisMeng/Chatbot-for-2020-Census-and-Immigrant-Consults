@@ -48,10 +48,10 @@ langdetect</p>
 <p><img src="https://github.com/MemphisMeng/Chatbot-for-2020-Census-and-Immigrant-Consults/blob/master/images/setup_app.png" alt="alt text"></p>
 <ol start="7">
 <li>
-<p>On the developer platform, click the “Generate Token” and copy the token for further use<img src="https://github.com/MemphisMeng/Chatbot-for-2020-Census-and-Immigrant-Consults/blob/master/images/ACCESS_TOKEN.png" alt="alt text"></p>
+<p>On the developer platform, click the â€œGenerate Tokenâ€ and copy the token for further use<img src="https://github.com/MemphisMeng/Chatbot-for-2020-Census-and-Immigrant-Consults/blob/master/images/ACCESS_TOKEN.png" alt="alt text"></p>
 </li>
 <li>
-<p>On the settings tab of the app that you created, click “Config Vars”<img src="https://github.com/MemphisMeng/Chatbot-for-2020-Census-and-Immigrant-Consults/blob/master/images/Config_vars.png" alt="enter image description here"></p>
+<p>On the settings tab of the app that you created, click â€œConfig Varsâ€<img src="https://github.com/MemphisMeng/Chatbot-for-2020-Census-and-Immigrant-Consults/blob/master/images/Config_vars.png" alt="enter image description here"></p>
 </li>
 <li>
 <p>Set two variables, ACCESS_TOKEN=&lt;the  token  you  copy  in  the  developer  platform&gt;, VERFIY_TOKEN=&lt;CUSTOMIZED&gt;(make sure its length is between 16 and 32)<img src="https://github.com/MemphisMeng/Chatbot-for-2020-Census-and-Immigrant-Consults/blob/master/images/vars.png" alt="enter image description here"></p>
