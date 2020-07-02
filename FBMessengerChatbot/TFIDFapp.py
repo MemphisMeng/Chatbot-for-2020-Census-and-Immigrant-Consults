@@ -1,12 +1,8 @@
 from flask import Flask, request
 from pymessenger.bot import Bot
 from FBMessengerChatbot.TFIDF.Transformer import Transformer
-from translate import Translator
 import os
 
-en_translator = Translator(to_lang="en")
-zh_translator = Translator(to_lang='zh')
-es_translator = Translator(to_lang='es')
 # define on heroku settings tab
 ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
 VERIFY_TOKEN = os.environ['VERIFY_TOKEN']
@@ -95,14 +91,6 @@ def receive_message():
                                 print('NLP is not deployed.')
 
                         response, similarity = transformer.match_query(message['message'].get('text'))
-                        
-                        # if message['message'].get('nlp'):
-                        #     if 'zh' in message['message']['nlp']['detected_locales'][0]['locale']:
-                        #         translated_query = en_translator.translate(message['message'].get('text'))
-                        #         print('translated query', translated_query)
-                        #         response, similarity = transformer.match_query(translated_query)
-                        #         print('second similarity', similarity)
-                        #         response = zh_translator.translate(response)
 
                         # no acceptable answers found in the pool
                         if similarity < 0.5:

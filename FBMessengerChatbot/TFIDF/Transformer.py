@@ -17,8 +17,7 @@ class Transformer:
         Spanish_FAQ = pd.read_csv(spanishFile, keep_default_na=False, encoding='cp1252', header=0)
         simplifiedChinese_FAQ = pd.read_csv(simplifiedChineseFile, keep_default_na=False, encoding='utf-16', header=0, sep='\t')
         traditionalChinese_FAQ = pd.read_csv(traditionalChineseFile, keep_default_na=False, encoding='utf-16', error_bad_lines=False, header=0, sep='\t')
-        print(simplifiedChinese_FAQ)
-        print(traditionalChinese_FAQ)
+
         self.FAQ = pd.concat([English_FAQ, simplifiedChinese_FAQ, traditionalChinese_FAQ, Spanish_FAQ], ignore_index=True)
         self.questions = self.FAQ.question
         self.answers = self.FAQ.answer
