@@ -5,3 +5,4 @@ nltk
 pandas
 sklearn
 gunicorn
+jieba==0.42.1

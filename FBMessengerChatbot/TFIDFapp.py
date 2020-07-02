@@ -1,5 +1,4 @@
 from flask import Flask, request
-from numpy import unicode
 from pymessenger.bot import Bot
 from FBMessengerChatbot.TFIDF.Transformer import Transformer
 from translate import Translator
@@ -94,8 +93,8 @@ def receive_message():
                                 #         continue
                             except KeyError:
                                 print('NLP is not deployed.')
-                        print(isinstance(message['message'].get('text'), unicode))
-                        response, similarity = transformer.match_query(message['message'].get('text').decode('utf-8').encode('utf-16'))
+
+                        response, similarity = transformer.match_query(message['message'].get('text'))
                         
                         # if message['message'].get('nlp'):
                         #     if 'zh' in message['message']['nlp']['detected_locales'][0]['locale']:

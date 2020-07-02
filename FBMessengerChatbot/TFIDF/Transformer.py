@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 from FBMessengerChatbot.TFIDF.PreProcessing import text_process, lem
-
+import jieba
 from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
@@ -26,17 +26,17 @@ class Transformer:
         self.questions, self.answers, self.corpus = self.questions.fillna(' '), self.answers.fillna(' '), self.corpus.fillna(' ')
 
         # for questions
-        self.question_BoW_transformer = CountVectorizer(analyzer=text_process).fit(self.questions)
+        self.question_BoW_transformer = CountVectorizer(analyzer=text_process, tokenizer=jieba.lcut).fit(self.questions)
         self.question_BoW = self.question_BoW_transformer.transform(self.questions) # count the number of each word appearing in the questions
         self.question_tfidf_transformer = TfidfTransformer().fit(self.question_BoW)
         self.question_tfidf = self.question_tfidf_transformer.transform(self.question_BoW) # calculate the TF/IDF of each word
         # for answers
-        self.answer_BoW_transformer = CountVectorizer(analyzer=text_process).fit(self.answers)
+        self.answer_BoW_transformer = CountVectorizer(analyzer=text_process, tokenizer=jieba.lcut).fit(self.answers)
         self.answer_BoW = self.answer_BoW_transformer.transform(self.answers)
         self.answer_tfidf_transformer = TfidfTransformer().fit(self.answer_BoW)
         self.answer_tfidf = self.answer_tfidf_transformer.transform(self.answer_BoW)
         # for corpus
-        self.corpus_BoW_transformer = CountVectorizer(analyzer=text_process).fit(self.corpus)
+        self.corpus_BoW_transformer = CountVectorizer(analyzer=text_process, tokenizer=jieba.lcut).fit(self.corpus)
         self.corpus_BoW = self.corpus_BoW_transformer.transform(self.corpus)
         self.corpus_tfidf_transformer = TfidfTransformer().fit(self.corpus_BoW)
         self.corpus_tfidf = self.corpus_tfidf_transformer.transform(self.corpus_BoW)
