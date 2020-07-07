@@ -12,7 +12,7 @@ pymessenger==0.0.7.0<br>
 pandas<br>
 sklearn<br>
 heroku<br>
-flask_mysql</p>
+flask_mysqldb</p>
 <h2 id="tutorial">Tutorial</h2>
 <ol>
 <li>Install <a href="%5Bhttps://devcenter.heroku.com/articles/heroku-cli#download-and-install%5D(https://devcenter.heroku.com/articles/heroku-cli#download-and-install)">heroku</a></li>
@@ -47,7 +47,7 @@ flask_mysql</p>
 <p><img src="https://github.com/MemphisMeng/Chatbot-for-2020-Census-and-Immigrant-Consults/blob/master/images/setup_app.png" alt="alt text"></p>
 <ol start="7">
 <li>
-<p>On the developer platform, click the â€œGenerate Tokenâ€ and copy the token for further use<img src="https://github.com/MemphisMeng/Chatbot-for-2020-Census-and-Immigrant-Consults/blob/master/images/ACCESS_TOKEN.png" alt="alt text"></p>
+<p>On the developer platform, click the "Generate Token" and copy the token for further use<img src="https://github.com/MemphisMeng/Chatbot-for-2020-Census-and-Immigrant-Consults/blob/master/images/ACCESS_TOKEN.png" alt="alt text"></p>
 </li>
 <li>
 <p>On the settings tab of the app that you created, click â€œConfig Varsâ€<img src="https://github.com/MemphisMeng/Chatbot-for-2020-Census-and-Immigrant-Consults/blob/master/images/Config_vars.png" alt="enter image description here"></p>
