@@ -24,6 +24,7 @@ app.config['MYSQL_PASSWORD'] = 'vpwQcdCkMN'
 app.config['MYSQL_HOST'] = 'sql9.freemysqlhosting.net'
 app.config['MYSQL_DB'] = 'sql9353097'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
+app.config['MYSQL_DATABASE_CHARSET'] = 'utf-16'
 MYSQL_TABLE = 'QnA'
 
 mysql = MySQL(app)
@@ -231,7 +232,7 @@ def hasTable(cursor):
         SELECT COUNT(*)
         FROM information_schema.tables
         WHERE table_name = '{}'
-        """.format(MYSQL_TABLE))
+        """.format(MYSQL_TABLE.replace('\'', '\'\'')))
         results = cursor.fetchall()
         if results is not None:
             return True
