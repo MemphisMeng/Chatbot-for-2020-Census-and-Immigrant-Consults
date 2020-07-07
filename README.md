@@ -9,11 +9,10 @@
 <p>Python3.6<br>
 Flask==1.1.2<br>
 pymessenger==0.0.7.0<br>
-nltk<br>
 pandas<br>
 sklearn<br>
 heroku<br>
-langdetect</p>
+flask_mysql</p>
 <h2 id="tutorial">Tutorial</h2>
 <ol>
 <li>Install <a href="%5Bhttps://devcenter.heroku.com/articles/heroku-cli#download-and-install%5D(https://devcenter.heroku.com/articles/heroku-cli#download-and-install)">heroku</a></li>
