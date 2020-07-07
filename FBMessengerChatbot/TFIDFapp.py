@@ -129,7 +129,7 @@ def receive_message():
                             bot.send_text_message(recipient_id, response)
                             i += 1
 
-                        insertTable(response, message, cur)
+                        insertTable("\'Interesting! Anything else I could help?\'", message, cur)
     return "Message Processed"
 
 
@@ -195,61 +195,8 @@ def insertTable(response, message, cursor):
     else:
         cursor.execute(
             '''INSERT INTO {} VALUES ({}, {}, {}, {})'''.format(MYSQL_TABLE, "'" + message['sender']['id'] + "'",
-                                                                time, "A non-text item sent", response))
+                                                                time, "\'A non-text item sent\'", response))
 
 
 if __name__ == "__main__":
     app.run()
-
-{'object': 'page',
- 'entry': [
-     {
-         'id': '100614728239050',
-         'time': 1594086355849,
-         'messaging': [
-             {
-                 'sender':
-                     {
-                         'id': '3690323734327683'
-                     },
-                 'recipient':
-                     {
-                         'id': '100614728239050'
-                     },
-                 'timestamp': 1594086355608,
-                 'message':
-                     {
-                         'mid': 'm_S0zcdsrv9gu8V0iKFaS1lULF2Q0d7p7VaJDAVF6mDIX0wVa9CGZWkWQ8ArmKki7qt0A0yvSVoos0ZnT5KtKTZw',
-                         'text': '歇息',
-                         'nlp':
-                             {
-                                 'entities':
-                                     {
-                                         'greetings': [
-                                             {
-                                                 'confidence': 0.73418509960175,
-                                                 'value': 'true'
-                                             }
-                                         ],
-                                         'location': [
-                                             {
-                                                 'suggested': True,
-                                                 'confidence': 0.34195482888008,
-                                                 'value': '歇息',
-                                                 'type': 'value'
-                                             }
-                                         ]
-                                     },
-                                 'detected_locales': [
-                                     {
-                                         'locale': 'en_XX',
-                                         'confidence': 0.4905
-                                     }
-                                 ]
-                             }
-                     }
-             }
-         ]
-     }
- ]
- }
