@@ -24,7 +24,7 @@ app.config['MYSQL_PASSWORD'] = 'vpwQcdCkMN'
 app.config['MYSQL_HOST'] = 'sql9.freemysqlhosting.net'
 app.config['MYSQL_DB'] = 'sql9353097'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
-MYSQL_TABLE = '\'QnA\''
+MYSQL_TABLE = 'QnA'
 
 mysql = MySQL(app)
 
