@@ -58,8 +58,6 @@ def receive_message():
                     # Facebook Messenger ID for user so we know where to send response back to
                     recipient_id = message['sender']['id']
                     if message['message'].get('text'):
-                        question = message['message'].get('text')
-
                         # NLP detection
                         if message['message'].get('nlp'):
                             try:
@@ -70,48 +68,21 @@ def receive_message():
                                             message['message']['nlp']['entities']['greetings'][0]['confidence'] >= 0.9:
                                         response = "Hello! Nice to meet you!"
                                         bot.send_text_message(recipient_id, response)
-                                        time = datetime.fromtimestamp(int(str(message['timestamp'])[:-3])).strftime(
-                                            '%Y-%m-%d %H:%M:%S')
-                                        cur.execute('''INSERT INTO {} VALUES ({}, {}, {}, {})'''.format(MYSQL_TABLE,
-                                                                                                        message[
-                                                                                                            'sender'][
-                                                                                                            'id'], time,
-                                                                                                        message[
-                                                                                                            'message'].get(
-                                                                                                            'text'),
-                                                                                                        response))
+                                        insertTable(response, message, cur)
                                         continue
                                     # bye detected
                                     elif message['message']['nlp']['entities'].get('bye') and \
                                             message['message']['nlp']['entities']['bye'][0]['confidence'] >= 0.9:
                                         response = "See you next time!"
                                         bot.send_text_message(recipient_id, response)
-                                        time = datetime.fromtimestamp(int(str(message['timestamp'])[:-3])).strftime(
-                                            '%Y-%m-%d %H:%M:%S')
-                                        cur.execute('''INSERT INTO {} VALUES ({}, {}, {}, {})'''.format(MYSQL_TABLE,
-                                                                                                        message[
-                                                                                                            'sender'][
-                                                                                                            'id'], time,
-                                                                                                        message[
-                                                                                                            'message'].get(
-                                                                                                            'text'),
-                                                                                                        response))
+                                        insertTable(response, message, cur)
                                         continue
                                     # thank detected
                                     elif message['message']['nlp']['entities'].get('thanks') and \
                                             message['message']['nlp']['entities']['thanks'][0]['confidence'] >= 0.9:
                                         response = "You are welcome!"
                                         bot.send_text_message(recipient_id, response)
-                                        time = datetime.fromtimestamp(int(str(message['timestamp'])[:-3])).strftime(
-                                            '%Y-%m-%d %H:%M:%S')
-                                        cur.execute('''INSERT INTO {} VALUES ({}, {}, {}, {})'''.format(MYSQL_TABLE,
-                                                                                                        message[
-                                                                                                            'sender'][
-                                                                                                            'id'], time,
-                                                                                                        message[
-                                                                                                            'message'].get(
-                                                                                                            'text'),
-                                                                                                        response))
+                                        insertTable(response, message, cur)
                                         continue
                                 # detected Spanish
                                 elif 'es' in message['message']['nlp']['detected_locales'][0]['locale']:
@@ -120,46 +91,19 @@ def receive_message():
                                             message['message']['nlp']['entities']['greetings'][0]['confidence'] >= 0.6:
                                         response = "¡Mucho gusto! ¿Cómo estás?"
                                         bot.send_text_message(recipient_id, response)
-                                        time = datetime.fromtimestamp(int(str(message['timestamp'])[:-3])).strftime(
-                                            '%Y-%m-%d %H:%M:%S')
-                                        cur.execute('''INSERT INTO {} VALUES ({}, {}, {}, {})'''.format(MYSQL_TABLE,
-                                                                                                        message[
-                                                                                                            'sender'][
-                                                                                                            'id'], time,
-                                                                                                        message[
-                                                                                                            'message'].get(
-                                                                                                            'text'),
-                                                                                                        response))
+                                        insertTable(response, message, cur)
                                         continue
                                     elif message['message']['nlp']['entities'].get('bye') and \
                                             message['message']['nlp']['entities']['bye'][0]['confidence'] >= 0.6:
                                         response = "¡adíos!"
                                         bot.send_text_message(recipient_id, response)
-                                        time = datetime.fromtimestamp(int(str(message['timestamp'])[:-3])).strftime(
-                                            '%Y-%m-%d %H:%M:%S')
-                                        cur.execute('''INSERT INTO {} VALUES ({}, {}, {}, {})'''.format(MYSQL_TABLE,
-                                                                                                        message[
-                                                                                                            'sender'][
-                                                                                                            'id'], time,
-                                                                                                        message[
-                                                                                                            'message'].get(
-                                                                                                            'text'),
-                                                                                                        response))
+                                        insertTable(response, message, cur)
                                         continue
                                     elif message['message']['nlp']['entities'].get('thanks') and \
                                             message['message']['nlp']['entities']['thanks'][0]['confidence'] >= 0.6:
                                         response = "¡De nada!"
                                         bot.send_text_message(recipient_id, response)
-                                        time = datetime.fromtimestamp(int(str(message['timestamp'])[:-3])).strftime(
-                                            '%Y-%m-%d %H:%M:%S')
-                                        cur.execute('''INSERT INTO {} VALUES ({}, {}, {}, {})'''.format(MYSQL_TABLE,
-                                                                                                        message[
-                                                                                                            'sender'][
-                                                                                                            'id'], time,
-                                                                                                        message[
-                                                                                                            'message'].get(
-                                                                                                            'text'),
-                                                                                                        response))
+                                        insertTable(response, message, cur)
                                         continue
                             except KeyError:
                                 print('NLP is not deployed.')
@@ -176,22 +120,16 @@ def receive_message():
                                 if r != '':
                                     bot.send_text_message(recipient_id, r.strip())
 
-                        time = datetime.fromtimestamp(int(str(message['timestamp'])[:-3])).strftime(
-                            '%Y-%m-%d %H:%M:%S')
-                        cur.execute('''INSERT INTO {} VALUES ({}, {}, {}, {})'''.format(MYSQL_TABLE,
-                                                                                        message[
-                                                                                            'sender'][
-                                                                                            'id'], time,
-                                                                                        message[
-                                                                                            'message'].get(
-                                                                                            'text'),
-                                                                                        response))
+                        insertTable(response, message, cur)
                     # if user sends us a GIF, photo,video, or any other non-text item
-                    if message['message'].get('attachments'):
+                    elif message['message'].get('attachments'):
                         i = 0
                         while i < 1:
-                            bot.send_text_message(recipient_id, "Interesting! Anything else I could help?")
+                            response = "Interesting! Anything else I could help?"
+                            bot.send_text_message(recipient_id, response)
                             i += 1
+
+                        insertTable(response, message, cur)
     return "Message Processed"
 
 
@@ -246,6 +184,18 @@ def createTable(cursor):
     cursor.execute(
         '''CREATE TABLE {} (senderID VARCHAR(20), sent_time TIME, question VARCHAR(100), answer VARCHAR(100))'''.
             format(MYSQL_TABLE))
+
+
+def insertTable(response, message, cursor):
+    time = datetime.fromtimestamp(int(str(message['timestamp'])[:-3])).strftime('%Y-%m-%d %H:%M:%S')
+    if message['message'].get('attachments') is False:
+        cursor.execute('''INSERT INTO {} VALUES ({}, {}, {}, {})'''.format(MYSQL_TABLE, "'" + message['sender']['id'] + "'",
+                                                                           time, "'" + message['message'].get('text') + "'",
+                                                                           response))
+    else:
+        cursor.execute(
+            '''INSERT INTO {} VALUES ({}, {}, {}, {})'''.format(MYSQL_TABLE, "'" + message['sender']['id'] + "'",
+                                                                time, "A non-text item sent", response))
 
 
 if __name__ == "__main__":
