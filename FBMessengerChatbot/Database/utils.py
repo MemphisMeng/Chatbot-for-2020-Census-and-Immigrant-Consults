@@ -11,7 +11,6 @@ def hasDatabase(cursor, database):
             WHERE SCHEMA_NAME = '{}'
             """.format(database))
         results = cursor.fetchall()
-        print("hadDatabase results: ", results)
         if results[0]['SCHEMA_NAME']:
             return True
         else:
@@ -37,7 +36,6 @@ def hasTable(cursor):
         """.format(MYSQL_TABLE.replace('\'', '\'\'')))
         results = cursor.fetchall()
         if results[0]['COUNT(*)'] == 1:
-            print("Data table exists already!")
             return True
         else:
             return False
@@ -54,11 +52,11 @@ def createTable(cursor):
 
 def insertTable(response, message, cursor):
     time = datetime.fromtimestamp(int(str(message['timestamp'])[:-3])).strftime('%Y-%m-%d %H:%M:%S')
-    if message['message'].get('attachments') is False:
+    if message['message'].get('text'):
         cursor.execute('''INSERT INTO {} VALUES({}, {}, {}, {})'''.format(MYSQL_TABLE, "\"" + message['sender']['id'] + "\"",
                                                                            time, "\"" + message['message'].get('text') + "\"",
                                                                            "\"" + response + "\""))
-    else:
+    elif message['message'].get('assignments'):
         cursor.execute(
             '''INSERT INTO {} VALUES({}, {}, {}, {})'''.format(MYSQL_TABLE, "'" + message['sender']['id'] + "'",
                                                                 time, "\"A non-text item sent\"", "\"" + response + "\""))

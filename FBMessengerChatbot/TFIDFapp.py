@@ -56,6 +56,8 @@ def receive_message():
                     # Facebook Messenger ID for user so we know where to send response back to
                     recipient_id = message['sender']['id']
                     if message['message'].get('text'):
+                        question = message['message'].get('text')
+
                         # NLP detection
                         if message['message'].get('nlp'):
                             try:
