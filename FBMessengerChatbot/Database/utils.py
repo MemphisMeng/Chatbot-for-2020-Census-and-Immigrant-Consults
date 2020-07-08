@@ -56,13 +56,13 @@ def insertTable(response, message, cursor):
     time = datetime.fromtimestamp(int(str(message['timestamp'])[:-3])).strftime('%Y-%m-%d %H:%M:%S')
     if message['message'].get('text'):
         cursor.execute(
-            '''INSERT INTO {}(senderID, sent_time, question, answer) VALUES({}, {}, {}, {})'''
+            '''INSERT INTO {}('senderID', 'sent_time', 'question', 'answer') VALUES({}, {}, {}, {})'''
                 .format(MYSQL_TABLE, "\"" + message['sender']['id'] + "\"",
                         time, "\"" + message['message'].get('text') + "\"",
                         "\"" + response + "\""))
     elif message['message'].get('assignments'):
         cursor.execute(
-            '''INSERT INTO {}(senderID, sent_time, question, answer) VALUES({}, {}, {}, {})'''
+            '''INSERT INTO {}('senderID', 'sent_time', 'question', 'answer') VALUES({}, {}, {}, {})'''
                 .format(MYSQL_TABLE, "'" + message['sender']['id'] + "'",
                         time, "\"A non-text item sent\"",
                         "\"" + response + "\""))
