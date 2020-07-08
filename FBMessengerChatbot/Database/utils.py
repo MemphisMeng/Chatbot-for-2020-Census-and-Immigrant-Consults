@@ -51,10 +51,10 @@ def createTable(cursor):
 def insertTable(response, message, cursor):
     time = datetime.fromtimestamp(int(str(message['timestamp'])[:-3])).strftime('%Y-%m-%d %H:%M:%S')
     if message['message'].get('attachments') is False:
-        cursor.execute('''INSERT INTO {} VALUES ({}, {}, {}, {})'''.format(MYSQL_TABLE, "'" + message['sender']['id'] + "'",
-                                                                           time, "'" + message['message'].get('text') + "'",
-                                                                           "'" + response + "'"))
+        cursor.execute('''INSERT INTO {} VALUES ({}, {}, {}, {})'''.format(MYSQL_TABLE, "\"" + message['sender']['id'] + "\"",
+                                                                           time, "\"" + message['message'].get('text') + "\"",
+                                                                           "\"" + response + "\""))
     else:
         cursor.execute(
             '''INSERT INTO {} VALUES ({}, {}, {}, {})'''.format(MYSQL_TABLE, "'" + message['sender']['id'] + "'",
-                                                                time, "\'A non-text item sent\'", "'" + response + "'"))
+                                                                time, "\"A non-text item sent\"", "\"" + response + "\""))
