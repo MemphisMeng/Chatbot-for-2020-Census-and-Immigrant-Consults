@@ -3,6 +3,7 @@ from datetime import datetime
 MYSQL_TABLE = 'QnA'
 MYSQL_DB = 'sql9353097'
 
+
 def hasDatabase(cursor, database):
     try:
         cursor.execute("""
@@ -45,7 +46,8 @@ def hasTable(cursor):
 
 def createTable(cursor):
     cursor.execute(
-        '''CREATE TABLE IF NOT EXISTS {}(senderID VARCHAR(20), sent_time DATETIME, question VARCHAR(100), answer VARCHAR(100))'''.
+        '''CREATE TABLE IF NOT EXISTS {}(id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, senderID VARCHAR(20), 
+        sent_time DATETIME, question VARCHAR(100), answer VARCHAR(100))'''.
             format(MYSQL_TABLE))
     print('Data table created successfully!')
 
@@ -53,10 +55,14 @@ def createTable(cursor):
 def insertTable(response, message, cursor):
     time = datetime.fromtimestamp(int(str(message['timestamp'])[:-3])).strftime('%Y-%m-%d %H:%M:%S')
     if message['message'].get('text'):
-        cursor.execute('''INSERT INTO {} VALUES({}, {}, {}, {})'''.format(MYSQL_TABLE, "\"" + message['sender']['id'] + "\"",
-                                                                           time, "\"" + message['message'].get('text') + "\"",
-                                                                           "\"" + response + "\""))
+        cursor.execute(
+            '''INSERT INTO {}(senderID, sent_time, question, answer) VALUES({}, {}, {}, {})'''
+                .format(MYSQL_TABLE, "\"" + message['sender']['id'] + "\"",
+                        time, "\"" + message['message'].get('text') + "\"",
+                        "\"" + response + "\""))
     elif message['message'].get('assignments'):
         cursor.execute(
-            '''INSERT INTO {} VALUES({}, {}, {}, {})'''.format(MYSQL_TABLE, "'" + message['sender']['id'] + "'",
-                                                                time, "\"A non-text item sent\"", "\"" + response + "\""))
+            '''INSERT INTO {}(senderID, sent_time, question, answer) VALUES({}, {}, {}, {})'''
+                .format(MYSQL_TABLE, "'" + message['sender']['id'] + "'",
+                        time, "\"A non-text item sent\"",
+                        "\"" + response + "\""))
