@@ -35,8 +35,7 @@ def hasTable(cursor):
         WHERE table_name = '{}'
         """.format(MYSQL_TABLE.replace('\'', '\'\'')))
         results = cursor.fetchall()
-        print("hastable result: ", results)
-        if results is not None:
+        if results[0]['COUNT(*)'] == 1:
             print("Data table exists already!")
             return True
         else:
