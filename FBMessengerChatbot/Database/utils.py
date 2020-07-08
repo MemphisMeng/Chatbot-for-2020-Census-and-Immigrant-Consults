@@ -11,6 +11,7 @@ def hasDatabase(cursor, database):
             WHERE SCHEMA_NAME = '{}'
             """.format(database))
         results = cursor.fetchall()
+        print("hadDatabase results: ", results)
         if results is not None:
             return True
         else:
