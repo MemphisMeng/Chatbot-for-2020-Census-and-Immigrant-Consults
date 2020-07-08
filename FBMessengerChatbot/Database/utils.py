@@ -12,7 +12,7 @@ def hasDatabase(cursor, database):
             """.format(database))
         results = cursor.fetchall()
         print("hadDatabase results: ", results)
-        if results is not None:
+        if results[0]['SCHEMA_NAME']:
             return True
         else:
             return False
@@ -47,7 +47,7 @@ def hasTable(cursor):
 
 def createTable(cursor):
     cursor.execute(
-        '''CREATE TABLE IF NOT EXISTS '{}' (senderID VARCHAR(20), sent_time DATETIME, question VARCHAR(100), answer VARCHAR(100))'''.
+        '''CREATE TABLE IF NOT EXISTS {}(senderID VARCHAR(20), sent_time DATETIME, question VARCHAR(100), answer VARCHAR(100))'''.
             format(MYSQL_TABLE))
     print('Data table created successfully!')
 
