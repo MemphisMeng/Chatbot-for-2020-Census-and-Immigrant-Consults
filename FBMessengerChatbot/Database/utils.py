@@ -22,6 +22,7 @@ def hasDatabase(cursor, database):
 def createDatabase(cursor, database):
     try:
         cursor.execute("""CREATE SCHEMA {}""".format(database))
+        print("Database created successfully!")
     except Exception as err:
         print("Something went wrong: {}".format(err))
 
@@ -44,8 +45,9 @@ def hasTable(cursor):
 
 def createTable(cursor):
     cursor.execute(
-        '''CREATE TABLE {} (senderID VARCHAR(20), sent_time TIME, question VARCHAR(100), answer VARCHAR(100))'''.
+        '''CREATE TABLE IF NOT EXISTS '{}' (senderID VARCHAR(20), sent_time TIME, question VARCHAR(100), answer VARCHAR(100))'''.
             format(MYSQL_TABLE))
+    print('Data table created successfully!')
 
 
 def insertTable(response, message, cursor):
