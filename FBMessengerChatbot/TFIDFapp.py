@@ -3,9 +3,8 @@ from pymessenger.bot import Bot
 from FBMessengerChatbot.TFIDF.Transformer import Transformer
 import os
 from flask_mysqldb import MySQL
-from datetime import datetime
+from FBMessengerChatbot.Database.utils import hasTable, hasDatabase, createTable, createDatabase, insertTable, MYSQL_DB
 
-# import mysql
 
 # define on heroku settings tab
 ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
@@ -22,10 +21,9 @@ transformer = Transformer('FBMessengerChatbot/data/train/QnA.csv',
 app.config['MYSQL_USER'] = 'sql9353097'
 app.config['MYSQL_PASSWORD'] = 'vpwQcdCkMN'
 app.config['MYSQL_HOST'] = 'sql9.freemysqlhosting.net'
-app.config['MYSQL_DB'] = 'sql9353097'
+app.config['MYSQL_DB'] = MYSQL_DB
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 app.config['MYSQL_DATABASE_CHARSET'] = 'utf-16'
-MYSQL_TABLE = 'QnA'
 
 mysql = MySQL(app)
 
@@ -35,8 +33,8 @@ mysql = MySQL(app)
 def receive_message():
     cur = mysql.connection.cursor()
     # check if the database exists
-    if hasDatabase(cur) is False:
-        createDatabase(cursor=cur)
+    if hasDatabase(cur, MYSQL_DB) is False:
+        createDatabase(cur, MYSQL_DB)
     # check if the table exists
     if hasTable(cur) is False:
         createTable(cur)
@@ -139,63 +137,6 @@ def verify_fb_token(token_sent):
     if token_sent == VERIFY_TOKEN:
         return request.args.get("hub.challenge")
     return 'Connected sucessfully!'
-
-
-def hasDatabase(cursor):
-    try:
-        cursor.execute("""
-            SELECT SCHEMA_NAME
-            FROM INFORMATION_SCHEMA.SCHEMATA
-            WHERE SCHEMA_NAME = {}
-            """.format(app.config['MYSQL_DB']))
-        results = cursor.fetchall()
-        if results is not None:
-            return True
-        else:
-            return False
-    except Exception as err:
-        print("Something went wrong: {}".format(err))
-
-
-def createDatabase(cursor):
-    try:
-        cursor.execute("""CREATE SCHEMA {}""".format(app.config['MYSQL_DB']))
-    except Exception as err:
-        print("Something went wrong: {}".format(err))
-
-
-def hasTable(cursor):
-    try:
-        cursor.execute("""
-        SELECT COUNT(*)
-        FROM information_schema.tables
-        WHERE table_name = '{}'
-        """.format(MYSQL_TABLE.replace('\'', '\'\'')))
-        results = cursor.fetchall()
-        if results is not None:
-            return True
-        else:
-            return False
-    except Exception as err:
-        print("Something went wrong: {}".format(err))
-
-
-def createTable(cursor):
-    cursor.execute(
-        '''CREATE TABLE {} (senderID VARCHAR(20), sent_time TIME, question VARCHAR(100), answer VARCHAR(100))'''.
-            format(MYSQL_TABLE))
-
-
-def insertTable(response, message, cursor):
-    time = datetime.fromtimestamp(int(str(message['timestamp'])[:-3])).strftime('%Y-%m-%d %H:%M:%S')
-    if message['message'].get('attachments') is False:
-        cursor.execute('''INSERT INTO {} VALUES ({}, {}, {}, {})'''.format(MYSQL_TABLE, "'" + message['sender']['id'] + "'",
-                                                                           time, "'" + message['message'].get('text') + "'",
-                                                                           response))
-    else:
-        cursor.execute(
-            '''INSERT INTO {} VALUES ({}, {}, {}, {})'''.format(MYSQL_TABLE, "'" + message['sender']['id'] + "'",
-                                                                time, "\'A non-text item sent\'", response))
 
 
 if __name__ == "__main__":
