@@ -8,7 +8,7 @@ def hasDatabase(cursor, database):
         cursor.execute("""
             SELECT SCHEMA_NAME
             FROM INFORMATION_SCHEMA.SCHEMATA
-            WHERE SCHEMA_NAME = {}
+            WHERE SCHEMA_NAME = '{}'
             """.format(database))
         results = cursor.fetchall()
         if results is not None:
