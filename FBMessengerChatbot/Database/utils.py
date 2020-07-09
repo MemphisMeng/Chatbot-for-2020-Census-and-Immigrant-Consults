@@ -58,9 +58,9 @@ def insertTable(response, message, cursor):
     if message['message'].get('text'):
         cursor.execute(
             '''INSERT INTO {}(senderID, sent_time, question, answer) VALUES({}, {}, {}, {})'''
-                .format(MYSQL_TABLE, "'" + message['sender']['id'] + "'",
-                        time, "'" + message['message'].get('text') + "'",
-                        "'" + response + "'"))
+                .format(MYSQL_TABLE, "'" + 'this is a senderID' + "'",
+                        time, "'" + "this is text" + "'",
+                        "'" + "response" + "'"))
     elif message['message'].get('assignments'):
         cursor.execute(
             '''INSERT INTO {}(senderID, sent_time, question, answer) VALUES({}, {}, {}, {})'''

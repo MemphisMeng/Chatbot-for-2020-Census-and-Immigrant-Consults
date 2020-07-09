@@ -23,7 +23,7 @@ app.config['MYSQL_PASSWORD'] = 'vpwQcdCkMN'
 app.config['MYSQL_HOST'] = 'sql9.freemysqlhosting.net'
 app.config['MYSQL_DB'] = MYSQL_DB
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
-app.config['MYSQL_DATABASE_CHARSET'] = 'utf-16'
+# app.config['MYSQL_DATABASE_CHARSET'] = 'utf-16'
 
 mysql = MySQL(app)
 
