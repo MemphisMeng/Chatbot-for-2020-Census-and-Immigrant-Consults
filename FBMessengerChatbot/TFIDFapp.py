@@ -2,9 +2,11 @@ from flask import Flask, request
 from pymessenger.bot import Bot
 from FBMessengerChatbot.TFIDF.Transformer import Transformer
 import os
-from flask_mysqldb import MySQL
-from FBMessengerChatbot.Database.utils import hasTable, hasDatabase, createTable, createDatabase, insertTable, MYSQL_DB
+from pymongo import MongoClient
 
+cluster = MongoClient('mongodb+srv://Memphis:Memphis_Meng2735@cluster0.jhury.mongodb.net/<dbname>?retryWrites=true&w=majority')
+db = cluster['QnA']
+collection = db['QnA']
 
 # define on heroku settings tab
 ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
@@ -17,28 +19,10 @@ transformer = Transformer('FBMessengerChatbot/data/train/QnA.csv',
                           'FBMessengerChatbot/data/train/traditionalChineseQnA.csv',
                           'FBMessengerChatbot/data/train/SpanishQnA.csv')
 
-# MySQL database
-app.config['MYSQL_USER'] = 'sql9353097'
-app.config['MYSQL_PASSWORD'] = 'vpwQcdCkMN'
-app.config['MYSQL_HOST'] = 'sql9.freemysqlhosting.net'
-app.config['MYSQL_DB'] = MYSQL_DB
-app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
-# app.config['MYSQL_DATABASE_CHARSET'] = 'utf-16'
-
-mysql = MySQL(app)
-
 
 # We will receive messages that Facebook sends our bot at this endpoint
 @app.route("/", methods=['GET', 'POST'])
 def receive_message():
-    cur = mysql.connection.cursor()
-    # check if the database exists
-    if hasDatabase(cur, MYSQL_DB) is False:
-        createDatabase(cur, MYSQL_DB)
-    # check if the table exists
-    if hasTable(cur) is False:
-        createTable(cur)
-
     if request.method == 'GET':
         """Before allowing people to message your bot, Facebook has implemented a verify token
         that confirms all requests that your bot receives came from Facebook."""
@@ -68,21 +52,24 @@ def receive_message():
                                             message['message']['nlp']['entities']['greetings'][0]['confidence'] >= 0.9:
                                         response = "Hello! Nice to meet you!"
                                         bot.send_text_message(recipient_id, response)
-                                        insertTable(response, message, cur)
+                                        collection.insert_one({"question": message['message'].get('text'),
+                                                               "answer": response})
                                         continue
                                     # bye detected
                                     elif message['message']['nlp']['entities'].get('bye') and \
                                             message['message']['nlp']['entities']['bye'][0]['confidence'] >= 0.9:
                                         response = "See you next time!"
                                         bot.send_text_message(recipient_id, response)
-                                        insertTable(response, message, cur)
+                                        collection.insert_one({"question": message['message'].get('text'),
+                                                               "answer": response})
                                         continue
                                     # thank detected
                                     elif message['message']['nlp']['entities'].get('thanks') and \
                                             message['message']['nlp']['entities']['thanks'][0]['confidence'] >= 0.9:
                                         response = "You are welcome!"
                                         bot.send_text_message(recipient_id, response)
-                                        insertTable(response, message, cur)
+                                        collection.insert_one({"question": message['message'].get('text'),
+                                                               "answer": response})
                                         continue
                                 # detected Spanish
                                 elif 'es' in message['message']['nlp']['detected_locales'][0]['locale']:
@@ -91,19 +78,22 @@ def receive_message():
                                             message['message']['nlp']['entities']['greetings'][0]['confidence'] >= 0.6:
                                         response = "¡Mucho gusto! ¿Cómo estás?"
                                         bot.send_text_message(recipient_id, response)
-                                        insertTable(response, message, cur)
+                                        collection.insert_one({"question": message['message'].get('text'),
+                                                               "answer": response})
                                         continue
                                     elif message['message']['nlp']['entities'].get('bye') and \
                                             message['message']['nlp']['entities']['bye'][0]['confidence'] >= 0.6:
                                         response = "¡adíos!"
                                         bot.send_text_message(recipient_id, response)
-                                        insertTable(response, message, cur)
+                                        collection.insert_one({"question": message['message'].get('text'),
+                                                               "answer": response})
                                         continue
                                     elif message['message']['nlp']['entities'].get('thanks') and \
                                             message['message']['nlp']['entities']['thanks'][0]['confidence'] >= 0.6:
                                         response = "¡De nada!"
                                         bot.send_text_message(recipient_id, response)
-                                        insertTable(response, message, cur)
+                                        collection.insert_one({"question": message['message'].get('text'),
+                                                               "answer": response})
                                         continue
                             except KeyError:
                                 print('NLP is not deployed.')
@@ -120,7 +110,7 @@ def receive_message():
                                 if r != '':
                                     bot.send_text_message(recipient_id, r.strip())
 
-                        insertTable(response, message, cur)
+                        collection.insert_one({"question": message['message'].get('text'), "answer": response})
                     # if user sends us a GIF, photo,video, or any other non-text item
                     elif message['message'].get('attachments'):
                         i = 0
@@ -129,7 +119,8 @@ def receive_message():
                             bot.send_text_message(recipient_id, response)
                             i += 1
 
-                        insertTable("\'Interesting! Anything else I could help?\'", message, cur)
+                        collection.insert_one({"question": "Non text",
+                                               "answer": "Interesting! Anything else I could help?"})
     return "Message Processed"
 
 
