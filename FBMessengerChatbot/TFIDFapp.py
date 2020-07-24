@@ -3,6 +3,7 @@ from pymessenger.bot import Bot
 from FBMessengerChatbot.TFIDF.Transformer import Transformer
 import os
 from pymongo import MongoClient
+import ssl
 
 
 # define on heroku settings tab
@@ -10,7 +11,7 @@ ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
 VERIFY_TOKEN = os.environ['VERIFY_TOKEN']
 MONGODB_URI = os.environ['MONGODB_URI']
 
-cluster = MongoClient(MONGODB_URI)
+cluster = MongoClient(MONGODB_URI, ssl=True, ssl_cert_reqs=ssl.CERT_NONE)
 db = cluster['QnA']
 collection = db['QnA']
 # flask app configuration
