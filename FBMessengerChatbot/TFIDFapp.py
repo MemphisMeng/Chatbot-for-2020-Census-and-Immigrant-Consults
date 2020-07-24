@@ -11,8 +11,8 @@ VERIFY_TOKEN = os.environ['VERIFY_TOKEN']
 MONGODB_URI = os.environ['MONGODB_URI']
 
 db = MongoClient(MONGODB_URI).get_database()
-
-print('check what db is named: ', db)
+collection = db.get_collection()
+print("collection's name: ", collection)
 # flask app configuration
 app = Flask(__name__)
 bot = Bot(ACCESS_TOKEN)
