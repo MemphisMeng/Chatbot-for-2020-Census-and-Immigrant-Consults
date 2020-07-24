@@ -12,7 +12,7 @@ MONGODB_URI = os.environ['MONGODB_URI']
 
 db = MongoClient(MONGODB_URI).get_database()
 
-print('check what db is named: ', )
+print('check what db is named: ', db)
 # flask app configuration
 app = Flask(__name__)
 bot = Bot(ACCESS_TOKEN)
