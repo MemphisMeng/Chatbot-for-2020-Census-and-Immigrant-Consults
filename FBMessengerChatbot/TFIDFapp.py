@@ -4,14 +4,15 @@ from FBMessengerChatbot.TFIDF.Transformer import Transformer
 import os
 from pymongo import MongoClient
 
-cluster = MongoClient(
-    'mongodb+srv://Memphis:Memphis_Meng2735@cluster0.jhury.mongodb.net/<dbname>?retryWrites=true&w=majority')
-db = cluster['QnA']
-collection = db['QnA']
+
 # define on heroku settings tab
 ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
 VERIFY_TOKEN = os.environ['VERIFY_TOKEN']
+MONGODB_URI = os.environ['MONGODB_URI']
 
+cluster = MongoClient(MONGODB_URI)
+db = cluster['QnA']
+collection = db['QnA']
 # flask app configuration
 app = Flask(__name__)
 bot = Bot(ACCESS_TOKEN)
