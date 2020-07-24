@@ -13,7 +13,6 @@ DBUSER = os.environ['USER']
 PWD = os.environ['PWD']
 
 db = MongoClient(MONGODB_URI)
-db.authenticate(DBUSER, PWD)
 collection = db['QnA']
 # flask app configuration
 app = Flask(__name__)
