@@ -4,5 +4,4 @@ pandas
 sklearn
 gunicorn
 pymongo
-pymongo[srv]
 dnspython
