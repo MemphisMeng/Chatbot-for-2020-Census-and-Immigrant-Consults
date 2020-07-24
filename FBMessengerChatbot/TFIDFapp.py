@@ -9,9 +9,11 @@ from pymongo import MongoClient
 ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
 VERIFY_TOKEN = os.environ['VERIFY_TOKEN']
 MONGODB_URI = os.environ['MONGODB_URI']
+DBUSER = os.environ['USER']
+PWD = os.environ['PWD']
 
-cluster = MongoClient(MONGODB_URI)
-db = cluster['QnA']
+db = MongoClient(MONGODB_URI)
+db.authenticate(DBUSER, PWD)
 collection = db['QnA']
 # flask app configuration
 app = Flask(__name__)
