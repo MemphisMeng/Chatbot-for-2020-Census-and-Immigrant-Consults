@@ -2,17 +2,21 @@ from flask import Flask, request
 from pymessenger.bot import Bot
 from FBMessengerChatbot.TFIDF.Transformer import Transformer
 import os
+from pymongo import MongoClient
 
+cluster = MongoClient('mongodb+srv://Memphis:Memphis_Meng2735@cluster0.jhury.mongodb.net/<dbname>?retryWrites=true&w=majority')
+db = cluster['QnA']
+collection = db['QnA']
 # define on heroku settings tab
 ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
 VERIFY_TOKEN = os.environ['VERIFY_TOKEN']
 
-
+# flask app configuration
 app = Flask(__name__)
 bot = Bot(ACCESS_TOKEN)
-transformer = Transformer('FBMessengerChatbot/data/train/QnA.csv', 'FBMessengerChatbot/data/train/SimplifiedChineseQnA.csv',
-                          'FBMessengerChatbot/data/train/traditionalChineseQnA.csv', 'FBMessengerChatbot/data/train/SpanishQnA.csv')
-
+transformer = Transformer('FBMessengerChatbot/data/train/QnA.csv',
+                          'FBMessengerChatbot/data/train/SimplifiedChineseQnA.csv',
+                          'FBMessengerChatbot/data/train/traditionalChineseQnA.csv',
 
 # We will receive messages that Facebook sends our bot at this endpoint
 @app.route("/", methods=['GET', 'POST'])
@@ -42,51 +46,51 @@ def receive_message():
                                     # greeting detected
                                     if message['message']['nlp']['entities'].get('greetings') and \
                                             message['message']['nlp']['entities']['greetings'][0]['confidence'] >= 0.9:
-                                        bot.send_text_message(recipient_id, "Hello! Nice to meet you!")
+                                        response = "Hello! Nice to meet you!"
+                                        bot.send_text_message(recipient_id, response)
+                                        collection.insert_one({"question": message['message'].get('text'),
+                                                               "answer": response})
                                         continue
                                     # bye detected
                                     elif message['message']['nlp']['entities'].get('bye') and \
                                             message['message']['nlp']['entities']['bye'][0]['confidence'] >= 0.9:
-                                        bot.send_text_message(recipient_id, "See you next time!")
+                                        response = "See you next time!"
+                                        bot.send_text_message(recipient_id, response)
+                                        collection.insert_one({"question": message['message'].get('text'),
+                                                               "answer": response})
                                         continue
                                     # thank detected
                                     elif message['message']['nlp']['entities'].get('thanks') and \
                                             message['message']['nlp']['entities']['thanks'][0]['confidence'] >= 0.9:
-                                        bot.send_text_message(recipient_id, "You are welcome!")
+                                        response = "You are welcome!"
+                                        bot.send_text_message(recipient_id, response)
+                                        collection.insert_one({"question": message['message'].get('text'),
+                                                               "answer": response})
                                         continue
                                 # detected Spanish
                                 elif 'es' in message['message']['nlp']['detected_locales'][0]['locale']:
                                     # greeting detected
                                     if message['message']['nlp']['entities'].get('greetings') and \
                                             message['message']['nlp']['entities']['greetings'][0]['confidence'] >= 0.6:
-                                        bot.send_text_message(recipient_id, "¡Mucho gusto! ¿Cómo estás?")
+                                        response = "¡Mucho gusto! ¿Cómo estás?"
+                                        bot.send_text_message(recipient_id, response)
+                                        collection.insert_one({"question": message['message'].get('text'),
+                                                               "answer": response})
                                         continue
                                     elif message['message']['nlp']['entities'].get('bye') and \
                                             message['message']['nlp']['entities']['bye'][0]['confidence'] >= 0.6:
-                                        bot.send_text_message(recipient_id, "¡Adiós!")
+                                        response = "¡adíos!"
+                                        bot.send_text_message(recipient_id, response)
+                                        collection.insert_one({"question": message['message'].get('text'),
+                                                               "answer": response})
                                         continue
                                     elif message['message']['nlp']['entities'].get('thanks') and \
                                             message['message']['nlp']['entities']['thanks'][0]['confidence'] >= 0.6:
-                                        bot.send_text_message(recipient_id, "¡De nada!")
+                                        response = "¡De nada!"
+                                        bot.send_text_message(recipient_id, response)
+                                        collection.insert_one({"question": message['message'].get('text'),
+                                                               "answer": response})
                                         continue
-                                # detected Chinese
-                                # elif 'zh' in message['message']['nlp']['detected_locales'][0]['locale']:
-                                #     # greeting detected
-                                #     if message['message']['nlp']['entities'].get('greetings') and \
-                                #             message['message']['nlp']['entities']['greetings'][0]['confidence'] >= 0.6:
-                                #         bot.send_text_message(recipient_id, "您好！很高兴为您服务！")
-                                #         print(message['message']['nlp']['entities'])
-                                #         continue
-                                #     elif message['message']['nlp']['entities'].get('bye') and \
-                                #             message['message']['nlp']['entities']['bye'][0]['confidence'] >= 0.6:
-                                #         bot.send_text_message(recipient_id, "再见！")
-                                #         print(message['message']['nlp']['entities'])
-                                #         continue
-                                #     elif message['message']['nlp']['entities'].get('thanks') and \
-                                #             message['message']['nlp']['entities']['thanks'][0]['confidence'] >= 0.6:
-                                #         bot.send_text_message(recipient_id, "不用谢！")
-                                #         print(message['message']['nlp']['entities'])
-                                #         continue
                             except KeyError:
                                 print('NLP is not deployed.')
 
@@ -101,12 +105,18 @@ def receive_message():
                             for r in responses:
                                 if r != '':
                                     bot.send_text_message(recipient_id, r.strip())
+
+                        collection.insert_one({"question": message['message'].get('text'), "answer": response})
                     # if user sends us a GIF, photo,video, or any other non-text item
                     if message['message'].get('attachments'):
                         i = 0
                         while i < 1:
                             bot.send_text_message(recipient_id, "Interesting! Anything else I could help?")
                             i += 1
+
+                        collection.insert_one({"question": "Non text",
+                                               "answer": "Interesting! Anything else I could help?"})
+
     return "Message Processed"
 
 
