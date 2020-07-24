@@ -4,7 +4,8 @@ from FBMessengerChatbot.TFIDF.Transformer import Transformer
 import os
 from pymongo import MongoClient
 
-cluster = MongoClient('mongodb+srv://Memphis:Memphis_Meng2735@cluster0.jhury.mongodb.net/<dbname>?retryWrites=true&w=majority')
+cluster = MongoClient(
+    'mongodb+srv://Memphis:Memphis_Meng2735@cluster0.jhury.mongodb.net/<dbname>?retryWrites=true&w=majority')
 db = cluster['QnA']
 collection = db['QnA']
 # define on heroku settings tab
@@ -17,6 +18,8 @@ bot = Bot(ACCESS_TOKEN)
 transformer = Transformer('FBMessengerChatbot/data/train/QnA.csv',
                           'FBMessengerChatbot/data/train/SimplifiedChineseQnA.csv',
                           'FBMessengerChatbot/data/train/traditionalChineseQnA.csv',
+                          'FBMessengerChatbot/data/train/SpanishQnA.csv')
+
 
 # We will receive messages that Facebook sends our bot at this endpoint
 @app.route("/", methods=['GET', 'POST'])
