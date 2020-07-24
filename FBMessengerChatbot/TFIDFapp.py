@@ -3,7 +3,7 @@ from pymessenger.bot import Bot
 from FBMessengerChatbot.TFIDF.Transformer import Transformer
 import os
 from pymongo import MongoClient
-
+from datetime import datetime
 
 # define on heroku settings tab
 ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
@@ -12,7 +12,7 @@ MONGODB_URI = os.environ['MONGODB_URI']
 
 db = MongoClient(MONGODB_URI).get_database()
 collection = db.get_collection('QnA')
-print("collection's name: ", collection)
+
 # flask app configuration
 app = Flask(__name__)
 bot = Bot(ACCESS_TOKEN)
@@ -51,24 +51,21 @@ def receive_message():
                                             message['message']['nlp']['entities']['greetings'][0]['confidence'] >= 0.9:
                                         response = "Hello! Nice to meet you!"
                                         bot.send_text_message(recipient_id, response)
-                                        collection.insert_one({"question": message['message'].get('text'),
-                                                               "answer": response})
+                                        insert(message, response)
                                         continue
                                     # bye detected
                                     elif message['message']['nlp']['entities'].get('bye') and \
                                             message['message']['nlp']['entities']['bye'][0]['confidence'] >= 0.9:
                                         response = "See you next time!"
                                         bot.send_text_message(recipient_id, response)
-                                        collection.insert_one({"question": message['message'].get('text'),
-                                                               "answer": response})
+                                        insert(message, response)
                                         continue
                                     # thank detected
                                     elif message['message']['nlp']['entities'].get('thanks') and \
                                             message['message']['nlp']['entities']['thanks'][0]['confidence'] >= 0.9:
                                         response = "You are welcome!"
                                         bot.send_text_message(recipient_id, response)
-                                        collection.insert_one({"question": message['message'].get('text'),
-                                                               "answer": response})
+                                        insert(message, response)
                                         continue
                                 # detected Spanish
                                 elif 'es' in message['message']['nlp']['detected_locales'][0]['locale']:
@@ -77,22 +74,19 @@ def receive_message():
                                             message['message']['nlp']['entities']['greetings'][0]['confidence'] >= 0.6:
                                         response = "¡Mucho gusto! ¿Cómo estás?"
                                         bot.send_text_message(recipient_id, response)
-                                        collection.insert_one({"question": message['message'].get('text'),
-                                                               "answer": response})
+                                        insert(message, response)
                                         continue
                                     elif message['message']['nlp']['entities'].get('bye') and \
                                             message['message']['nlp']['entities']['bye'][0]['confidence'] >= 0.6:
                                         response = "¡adíos!"
                                         bot.send_text_message(recipient_id, response)
-                                        collection.insert_one({"question": message['message'].get('text'),
-                                                               "answer": response})
+                                        insert(message, response)
                                         continue
                                     elif message['message']['nlp']['entities'].get('thanks') and \
                                             message['message']['nlp']['entities']['thanks'][0]['confidence'] >= 0.6:
                                         response = "¡De nada!"
                                         bot.send_text_message(recipient_id, response)
-                                        collection.insert_one({"question": message['message'].get('text'),
-                                                               "answer": response})
+                                        insert(message, response)
                                         continue
                             except KeyError:
                                 print('NLP is not deployed.')
@@ -109,7 +103,7 @@ def receive_message():
                                 if r != '':
                                     bot.send_text_message(recipient_id, r.strip())
 
-                        collection.insert_one({"question": message['message'].get('text'), "answer": response})
+                        insert(message, response)
                     # if user sends us a GIF, photo,video, or any other non-text item
                     if message['message'].get('attachments'):
                         i = 0
@@ -128,7 +122,14 @@ def verify_fb_token(token_sent):
     # if they match, allow the request, else return an error
     if token_sent == VERIFY_TOKEN:
         return request.args.get("hub.challenge")
-    return 'Connected sucessfully!'
+    return 'Connected successfully!'
+
+
+def insert(message, response):
+    time = datetime.fromtimestamp(int(str(message['timestamp'])[:-3])).strftime(
+        '%Y-%m-%d %H:%M:%S')
+    collection.insert_one({"question": message['message'].get('text'),
+                           "answer": response, 'time': time})
 
 
 if __name__ == "__main__":
