@@ -11,7 +11,7 @@ VERIFY_TOKEN = os.environ['VERIFY_TOKEN']
 MONGODB_URI = os.environ['MONGODB_URI']
 
 db = MongoClient(MONGODB_URI).get_database()
-collection = db.get_collection()
+collection = db.get_collection('QnA')
 print("collection's name: ", collection)
 # flask app configuration
 app = Flask(__name__)
