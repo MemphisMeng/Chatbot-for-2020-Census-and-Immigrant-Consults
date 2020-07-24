@@ -3,4 +3,5 @@ pymessenger==0.0.7.0
 pandas
 sklearn
 gunicorn
-flask_mysqldb
+pymongo
+pymongo[srv]
