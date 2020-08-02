@@ -12,7 +12,8 @@ pymessenger==0.0.7.0<br>
 pandas<br>
 sklearn<br>
 heroku<br>
-flask_mysqldb</p>
+pymongo<br>
+dnspython<br>
 <h2 id="tutorial">Tutorial</h2>
 <ol>
 <li>Install <a href="%5Bhttps://devcenter.heroku.com/articles/heroku-cli#download-and-install%5D(https://devcenter.heroku.com/articles/heroku-cli#download-and-install)">heroku</a></li>
