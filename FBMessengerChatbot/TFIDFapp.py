@@ -3,7 +3,7 @@ from pymessenger.bot import Bot
 from FBMessengerChatbot.TFIDF.Transformer import Transformer
 import os
 from pymongo import MongoClient
-from datetime import datetime
+from datetime import datetime, timedelta
 
 # define on heroku settings tab
 ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
@@ -12,7 +12,7 @@ MONGODB_URI = os.environ['MONGODB_URI']
 
 # db = MongoClient(MONGODB_URI).get_database()
 # collection = db.get_collection('QnA')
-cluster = MongoClient('mongodb+srv://Memphis:Memphis_Meng2735@cluster0.jhury.mongodb.net/QnA?retryWrites=true&w=majority')
+cluster = MongoClient(MONGODB_URI)
 db = cluster['QnA']
 collection = db['QnA']
 
@@ -129,7 +129,8 @@ def verify_fb_token(token_sent):
 
 
 def insert(message, response):
-    time = datetime.fromtimestamp(int(str(message['timestamp'])[:-3])).strftime(
+    # EST
+    time = (datetime.fromtimestamp(int(str(message['timestamp'])[:-3])) - timedelta(hours=4)).strftime(
         '%Y-%m-%d %H:%M:%S')
     collection.insert_one({"question": message['message'].get('text'),
                            "answer": response, 'time': time})
