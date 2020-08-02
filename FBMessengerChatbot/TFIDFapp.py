@@ -10,8 +10,11 @@ ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
 VERIFY_TOKEN = os.environ['VERIFY_TOKEN']
 MONGODB_URI = os.environ['MONGODB_URI']
 
-db = MongoClient(MONGODB_URI).get_database()
-collection = db.get_collection('QnA')
+# db = MongoClient(MONGODB_URI).get_database()
+# collection = db.get_collection('QnA')
+cluster = MongoClient('mongodb+srv://Memphis:Memphis_Meng2735@cluster0.jhury.mongodb.net/QnA?retryWrites=true&w=majority')
+db = cluster['QnA']
+collection = db['QnA']
 
 # flask app configuration
 app = Flask(__name__)
@@ -78,7 +81,7 @@ def receive_message():
                                         continue
                                     elif message['message']['nlp']['entities'].get('bye') and \
                                             message['message']['nlp']['entities']['bye'][0]['confidence'] >= 0.6:
-                                        response = "¡adíos!"
+                                        response = "¡Adíos!"
                                         bot.send_text_message(recipient_id, response)
                                         insert(message, response)
                                         continue
