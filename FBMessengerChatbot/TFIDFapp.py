@@ -37,7 +37,6 @@ def receive_message():
     else:
         # get whatever message a user sent the bot
         output = request.get_json()
-        print("OUTPUT: ", output)
         for event in output['entry']:
             messaging = event['messaging']
             for message in messaging:
@@ -54,16 +53,14 @@ def receive_message():
                                     if message['message']['nlp']['entities'].get('greetings') and \
                                             message['message']['nlp']['entities']['greetings'][0]['confidence'] >= 0.9:
                                         response = "Hello! Nice to meet you!"
-                                        r = bot.send_text_message(recipient_id, response)
-                                        print('bot\'s response end point:', r)
+                                        bot.send_text_message(recipient_id, response)
                                         insert(message, response)
                                         continue
                                     # bye detected
                                     elif message['message']['nlp']['entities'].get('bye') and \
                                             message['message']['nlp']['entities']['bye'][0]['confidence'] >= 0.9:
                                         response = "See you next time!"
-                                        r = bot.send_text_message(recipient_id, response)
-                                        print('bot\'s response end point:', r)
+                                        bot.send_text_message(recipient_id, response)
                                         insert(message, response)
                                         continue
                                     # thank detected
