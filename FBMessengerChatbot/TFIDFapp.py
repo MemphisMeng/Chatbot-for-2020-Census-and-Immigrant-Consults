@@ -10,8 +10,6 @@ ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
 VERIFY_TOKEN = os.environ['VERIFY_TOKEN']
 MONGODB_URI = os.environ['MONGODB_URI']
 
-# db = MongoClient(MONGODB_URI).get_database()
-# collection = db.get_collection('QnA')
 cluster = MongoClient(MONGODB_URI)
 db = cluster['QnA']
 collection = db['QnA']
@@ -133,7 +131,7 @@ def insert(message, response):
     time = (datetime.fromtimestamp(int(str(message['timestamp'])[:-3])) - timedelta(hours=4)).strftime(
         '%Y-%m-%d %H:%M:%S')
     collection.insert_one({"question": message['message'].get('text'),
-                           "answer": response, 'time': time})
+                           "answer": response, 'time': time, 'source':'Facebook Messenger'})
 
 
 if __name__ == "__main__":
